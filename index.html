@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles.css" rel="stylesheet" type="text/css">
+    <title>Mesto</title>
+</head>
+<body class="body">
+    <div class="page">
+        <header class="header">
+            <img class="header__logo" src="images/logo.svg" alt="Логотип">
+        </header>
+        <main class="main">
+            <section class="profile">
+                <img class="profile__avatar" src="images/Avatar.png" alt="Аватарка">
+                <div class="profile__info">
+                    <div class="profile__item">
+                        <h1 class="profile__title">Жак-Ив Кусто</h1>
+                        <button class="profile__edit_button"><img class="profile__edit_button_img" src="images/pen.svg" alt="Кнопка редактирования"></button>
+                    </div>
+                    <p class="profile__subtitle">Исследователь океана</p>
+                </div>
+                <button class="profile__add_button"><img class="profile__add_button_img" src="images/plus.svg" alt="Кнопка редактирования"></button>
+            </section>
+            <section class="elements">
+                <div class="element">
+                    <img src="images/Mesto_1.png" alt="Место1" class="element__image">
+                    <div class="element__caption">
+                        <h2 class="element__title">Карачаевск</h2>
+                        <button class="element__button_like"><img src="images/heart.svg" class="element__like_image" alt="Лайк"></button>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img src="images/Mesto_2.png" alt="Место1" class="element__image">
+                    <div class="element__caption">
+                        <h2 class="element__title">Гора Эльбрус</h2>
+                        <button class="element__button_like"><img src="images/heart.svg" class="element__like_image" alt="Лайк"></button>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img src="images/Mesto_3.png" alt="Место1" class="element__image">
+                    <div class="element__caption">
+                        <h2 class="element__title">Домбай</h2>
+                        <button class="element__button_like"><img src="images/heart.svg" class="element__button_like_image" alt="Лайк"></button>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img src="images/Mesto_3.png" alt="Место1" class="element__image">
+                    <div class="element__caption">
+                        <h2 class="element__title">Гора Эльбрус</h2>
+                        <button class="element__button_like"><img src="images/heart.svg" class="element__like_image" alt="Лайк"></button>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img src="images/Mesto_2.png" alt="Место1" class="element__image">
+                    <div class="element__caption">
+                        <h2 class="element__title">Домбай</h2>
+                        <button class="element__button_like"><img src="images/heart.svg" class="element__like_image" alt="Лайк"></button>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img src="images/Mesto_1.png" alt="Место1" class="element__image">
+                    <div class="element__caption">
+                        <h2 class="element__title">Карачаево-Черкесия</h2>
+                        <button class="element__button_like"><img src="images/heart.svg" class="element__like_image" alt="Лайк"></button>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="footer">
+            <p class="copyright">&copy; Дмитрий Калинин</p>
+        </footer>
+        <section class="modal_window">
+            <h2 class="modal_window__title">Редактировать профиль</h2>
+            <form class="modal_window__form" onsubmit="return false"></form>
+                <input class="modal_window__item modal_window__name" type="text" placeholder="Ваше имя" required>
+                <input class="modal_window__item modal_window__employment" type="text" placeholder="Ваше занятие" required>
+                <input class="modal_window__item modal_window__submit_button" type="submit" value="Сохранить">
+            </form>
+            <button class="modal_window__close_button"><img class="modal_window__close_image"  src="images/Close Icon.png"></button>
+        </section>
+        <div class="overlay"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
