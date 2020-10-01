@@ -1,46 +1,48 @@
-let ModalWindow;
-let ModalWindowClose;
-let ProfileEdit;
-let ProfileName;
-let ProfileEmployment;
-let FormProfileName;
-let FormProfileEmployment;
-let FormSave;
-let Overlay;
+let modalWindow;
+let modalWindowClose;
+let profileEdit;
+let profileName;
+let profileEmployment;
+let formProfileName;
+let formProfileEmployment;
+let formSave;
+let overlay;
 
-ModalWindow = document.querySelector('.modal_window');
-ModalWindowClose = document.querySelector('.modal_window__close_button');
-ProfileEdit = document.querySelector('.profile__edit_button');
-ProfileName = document.querySelector('.profile__title')
-ProfileEmployment = document.querySelector('.profile__subtitle');
-FormProfileName = document.querySelector('.modal_window__name');
-FormProfileEmployment = document.querySelector('.modal_window__employment');
-FormSave = document.querySelector('.modal_window__submit_button');
-Overlay = document.querySelector('.overlay');
+modalWindow = document.querySelector('.modal_window');
+modalWindowClose = document.querySelector('.modal_window__close_button');
+profileEdit = document.querySelector('.profile__edit_button');
+profileName = document.querySelector('.profile__title')
+profileEmployment = document.querySelector('.profile__subtitle');
+formProfileName = document.querySelector('.modal_window__name');
+formProfileEmployment = document.querySelector('.modal_window__employment');
+formSave = document.querySelector('.modal_window__submit_button');
+overlay = document.querySelector('.overlay');
 
-ProfileEdit.addEventListener('click', OpenWindow);
-ModalWindowClose.addEventListener('click', CloseWindow);
-FormSave.addEventListener('click', DataSave);
-
-function OpenWindow(){
-    FormProfileName.value = "";
-    FormProfileEmployment.value ="";
-    ModalWindow.classList.add('modal_window_is_open');
-    Overlay.setAttribute("style", 'display:block');
-    FormProfileName.setAttribute('placeholder', ProfileName.textContent);
-    FormProfileEmployment.setAttribute('placeholder', ProfileEmployment.textContent);
-
-}
-function CloseWindow(){
-    console.log(ModalWindow.classList);
-    Overlay.setAttribute("style", 'display:none');
-    ModalWindow.classList.remove('modal_window_is_open');
+function openWindowHandler(){
+    formProfileName.value = "";
+    formProfileEmployment.value ="";
+    modalWindow.setAttribute("style", 'display:block');
+    overlay.setAttribute("style", 'display:block');
+    formProfileName.setAttribute('placeholder', profileName.textContent);
+    formProfileEmployment.setAttribute('placeholder', profileEmployment.textContent);
 }
 
-function DataSave(){
-    ProfileName.textContent = FormProfileName.value;
-    ProfileEmployment.textContent = FormProfileEmployment.value;
-    CloseWindow();
+function closeWindowHandler(){
+    console.log(modalWindow.classList);
+    modalWindow.setAttribute("style", 'display:none');
+    overlay.setAttribute("style", 'display:none');
+}  
+
+function formDataSaveHandler(){
+    profileName.textContent = formProfileName.value;
+    profileEmployment.textContent = formProfileEmployment.value;
+    closeWindowHandler();
 }
+
+profileEdit.addEventListener('click', openWindowHandler);
+modalWindowClose.addEventListener('click', closeWindowHandler);
+formSave.addEventListener('click', formDataSaveHandler);
+
+
 
 

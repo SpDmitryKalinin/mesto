@@ -1,0 +1,52 @@
+/*Fonts*/
+@import url(../fonts/InterWeb/inter.css);
+
+@import url(../blocks/body/body.css);
+@import url(../blocks/page/page.css);
+
+/*Overlay*/
+@import url(../blocks/overlay/overlay.css);
+
+/*Header*/
+@import url(../blocks/header/header.css);
+@import url(../blocks/header/__logo/header__logo.css);
+
+/*Profile*/
+@import url(../blocks/profile/profile.css);
+@import url(../blocks/profile/__info/profile__info.css);
+@import url(../blocks/profile/__avatar/profile__avatar.css);
+@import url(../blocks/profile/__title/profile__title.css);
+@import url(../blocks/profile/__subtitle/profile__subtitle.css);
+@import url(../blocks/profile/__item/profile__item.css);
+@import url(../blocks/profile/__edit_button/profile_edit_button.css);
+@import url(../blocks/profile/__edit_button_img/profile__edit_button_img.css);
+@import url(../blocks/profile/__add_button/profile__add_button.css);
+@import url(../blocks/profile/__add_button_img/profile__add_button_img.css);
+
+/*Main*/
+@import url(../blocks/main/main.css);
+
+/*Elements*/
+@import url(../blocks/elements/elements.css);
+@import url(../blocks/element/element.css);
+@import url(../blocks/element/__title/element__title.css);
+@import url(../blocks/element/__caption/element__caption.css);
+@import url(../blocks/element/__image/element__image.css);
+@import url(../blocks/element/__button_like/element__button_like.css);
+@import url(../blocks/element/__button_like_image/element__button_like_image.css);
+
+/*Footer*/
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__copyright/footer__copyright.css);
+
+/*Modal window*/
+@import url(../blocks/modal_window/modal_window.css);
+@import url(../blocks/modal_window/__title/modal_window__title.css);
+@import url(../blocks/modal_window/__form/);
+@import url(../blocks/modal_window/__item/modal_window__item.css);
+@import url(../blocks/modal_window/__name/modal_window__name.css);
+@import url(../blocks/modal_window/__employment/modal_window__employment.css);
+@import url(../blocks/modal_window/__submit_button/modal_window__submit_button.css);
+@import url(../blocks/modal_window/__close_button/modal_window__close_button.css);
+@import url(../blocks/modal_window/__close_image/modal_window__close_image.css);
+
