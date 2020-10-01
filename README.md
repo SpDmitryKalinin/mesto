@@ -10,4 +10,8 @@
 
 Проект - первая проба сайта с javascript. Реализован pop-up и редактирование профиля внутри одной сессии.
 
+## Ссылка на проект
+
+https://spdmitrykalinin.github.io/mesto/index.html
+
 
