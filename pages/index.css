@@ -8,9 +8,6 @@
 @import url(../blocks/body/body.css);
 @import url(../blocks/page/page.css);
 
-/*Overlay*/
-@import url(../blocks/overlay/overlay.css);
-
 /*Header*/
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__logo/header__logo.css);
@@ -22,10 +19,10 @@
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__item/profile__item.css);
-@import url(../blocks/profile/__edit_button/profile_edit_button.css);
-@import url(../blocks/profile/__edit_button_img/profile__edit_button_img.css);
-@import url(../blocks/profile/__add_button/profile__add_button.css);
-@import url(../blocks/profile/__add_button_img/profile__add_button_img.css);
+@import url(../blocks/profile/__edit-button/profile__edit-button.css);
+@import url(../blocks/profile/__edit-button-img/profile__edit-button-img.css);
+@import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/__add-button-img/profile__add-button-img.css);
 
 /*Main*/
 @import url(../blocks/main/main.css);
@@ -36,21 +33,21 @@
 @import url(../blocks/element/__title/element__title.css);
 @import url(../blocks/element/__caption/element__caption.css);
 @import url(../blocks/element/__image/element__image.css);
-@import url(../blocks/element/__button_like/element__button_like.css);
-@import url(../blocks/element/__button_like_image/element__button_like_image.css);
+@import url(../blocks/element/__button-like/element__button-like.css);
+@import url(../blocks/element/__button-like-image/element__button-like-image.css);
 
 /*Footer*/
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
 
 /*Modal window*/
-@import url(../blocks/modal_window/modal_window.css);
-@import url(../blocks/modal_window/__title/modal_window__title.css);
-@import url(../blocks/modal_window/__form/);
-@import url(../blocks/modal_window/__item/modal_window__item.css);
-@import url(../blocks/modal_window/__name/modal_window__name.css);
-@import url(../blocks/modal_window/__employment/modal_window__employment.css);
-@import url(../blocks/modal_window/__submit_button/modal_window__submit_button.css);
-@import url(../blocks/modal_window/__close_button/modal_window__close_button.css);
-@import url(../blocks/modal_window/__close_image/modal_window__close_image.css);
-
+@import url(../blocks/modal-window/modal-window.css);
+@import url(../blocks/modal-window/__title/modal-window__title.css);
+@import url(../blocks/modal-window/__form/modal-window__form.css);
+@import url(../blocks/modal-window/__item/modal-window__item.css);
+@import url(../blocks/modal-window/__name/modal-window__name.css);
+@import url(../blocks/modal-window/__employment/modal-window__employment.css);
+@import url(../blocks/modal-window/__submit-button/modal-window__submit-button.css);
+@import url(../blocks/modal-window/__close-button/modal-window__close-button.css);
+@import url(../blocks/modal-window/__close_image/modal-window__close-image.css);
+@import url(../blocks/modal-window/_is-open/modal-window_is-open.css);

@@ -1,0 +1,11 @@
+.modal-window__item{
+    width: 358px;
+    margin-left: 36px;
+}
+
+@media screen and (max-width: 900px){
+    .modal-window__item{
+        width: 238px;
+        margin-left: 22px;
+    }
+}
