@@ -1,6 +1,15 @@
 .modal-window__item{
     width: 358px;
     margin-left: 36px;
+    border: 0;
+    padding: 0;
+    padding-bottom: 14px;
+    border-bottom: 1px solid RGBA(0,0,0,0.2);
+}
+
+.modal-window__item:focus{
+    outline: 0;
+    outline-offset: 0;
 }
 
 @media screen and (max-width: 900px){
@@ -9,3 +18,4 @@
         margin-left: 22px;
     }
 }
+

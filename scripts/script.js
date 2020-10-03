@@ -8,8 +8,8 @@ let formProfileEmployment = document.querySelector('.modal-window__employment');
 let form = document.querySelector('.modal-window__form');
 
 function openWindowHandler(){
-    formProfileName.setAttribute('value', profileName.textContent);
-    formProfileEmployment.setAttribute('value', profileEmployment.textContent);
+    formProfileName.value = profileName.textContent;
+    formProfileEmployment.value = profileEmployment.textContent;
     modalWindow.classList.add("modal-window_is-open");
     
 }

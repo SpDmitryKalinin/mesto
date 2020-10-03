@@ -1,7 +1,14 @@
 .element__button-like{
     background-color: white;
-    width: 20px 18px;
+    width: 20px;
     border: none;
     align-self: flex-end;
     cursor: pointer;
+    margin: 0;
+    padding: 0;
 }
+
+.element__button-like:hover{
+    opacity: 0.6;
+}
+

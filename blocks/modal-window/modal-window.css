@@ -7,3 +7,11 @@
     background-color: RGBA(0,0,0,0.5);
     display: none;
 }
+
+.modal-window input:first-of-type{
+    margin-bottom: 30px;
+}
+
+.modal-window input:last-of-type{
+    margin-bottom: 48px;
+}
