@@ -1,9 +1,13 @@
 .profile__add-button{
     background-color: black;
     margin-left: auto;
-    padding: 10px 62px;
     border: 2px solid white;
     cursor: pointer;
+    background-image: url(../../../images/plus.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px;
+    padding: 23px 73px;
 }
 
 .profile__add-button:hover{
@@ -18,5 +22,6 @@
         border: 2px solid white;
         padding-top: 13px;
         padding-bottom: 13px;
+        background-size: 16px;
     }
 }

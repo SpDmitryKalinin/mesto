@@ -1,8 +1,10 @@
 .elements{
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, 280px);
     gap: 18px;
     margin-top: 50px;
+    justify-content: center;
 }
 
 @media screen and (max-width: 767px){

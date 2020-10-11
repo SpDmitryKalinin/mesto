@@ -1,9 +1,0 @@
-.modal-window__close-image{
-    width: 40px;
-}
-
-@media screen and (max-width: 900px){
-    .modal-window__close-image{
-        width: 26px;
-    }
-}

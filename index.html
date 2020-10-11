@@ -17,75 +17,61 @@
                 <div class="profile__info">
                     <div class="profile__item">
                         <h1 class="profile__title">Жак-Ив Кусто</h1>
-                        <button type="button" class="profile__edit-button"><img class="profile__edit-button-img" src="images/pen.svg" alt="Кнопка редактирования"></button>
+                        <button type="button" class="profile__edit-button"></button>
                     </div>
                     <p class="profile__subtitle">Исследователь океана</p>
                 </div>
-                <button type="button" class="profile__add-button"><img class="profile__add-button-img" src="images/plus.svg" alt="Кнопка добавить"></button>
+                <button type="button" class="profile__add-button"></button>
             </section>
             <section class="elements">
-                <div class="element">
-                    <img src="images/Mesto_1.png" alt="Место1" class="element__image">
-                    <div class="element__caption">
-                        <h2 class="element__title">Карачаевск</h2>
-                        <button type="button" class="element__button-like"><img src="images/heart.svg" class="element__button-like-image" alt="Лайк"></button>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <img src="images/Mesto_2.png" alt="Место1" class="element__image">
-                    <div class="element__caption">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button type="button" class="element__button-like"><img src="images/heart.svg" class="element__button-like-image" alt="Лайк"></button>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <img src="images/Mesto_3.png" alt="Место1" class="element__image">
-                    <div class="element__caption">
-                        <h2 class="element__title">Домбай</h2>
-                        <button type="button" class="element__button-like"><img src="images/heart.svg" class="element__button-like-image" alt="Лайк"></button>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <img src="images/Mesto_3.png" alt="Место1" class="element__image">
-                    <div class="element__caption">
-                        <h2 class="element__title">Гора Эльбрус</h2>
-                        <button type="button" class="element__button-like"><img src="images/heart.svg" class="element__button-like-image" alt="Лайк"></button>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <img src="images/Mesto_2.png" alt="Место1" class="element__image">
-                    <div class="element__caption">
-                        <h2 class="element__title">Домбай</h2>
-                        <button type="button" class="element__button-like"><img src="images/heart.svg" class="element__button-like-image" alt="Лайк"></button>
-                    </div>
-                </div>
-
-                <div class="element">
-                    <img src="images/Mesto_1.png" alt="Место1" class="element__image">
-                    <div class="element__caption">
-                        <h2 class="element__title">Карачаево-Черкесия</h2>
-                        <button type="button" class="element__button-like"><img src="images/heart.svg" class="element__button-like-image" alt="Лайк"></button>
-                    </div>
-                </div>
+                
             </section>
         </main>
         <footer class="footer">
             <p class="footer__copyright">&copy; Дмитрий Калинин</p>
         </footer>
-        <section class="modal-window">
-            <form name="profile" class="modal-window__form">
+        <section class="modal-window modal-window_edit">
+            <form name="profile" class="modal-window__form modal-window__form_edit">
                 <h2 class="modal-window__title">Редактировать профиль</h2>
                 <input name="name" class="modal-window__item modal-window__name" type="text" required>
                 <input name="emloyment" class="modal-window__item modal-window__employment" type="text" required>
                 <button class="modal-window__item modal-window__submit-button" type="submit">Сохранить</button>
-                <button type="button" class="modal-window__close-button"><img class="modal-window__close-image" alt="Кнопка закрытия модального окна" src="images/Close_Icon.svg"></button>
+                <button type="button" class="modal-window__close-button modal-window__close-button_edit"></button>
             </form>
         </section>
+
+        <section class="modal-window modal-window_add">
+            <form name="profile" class="modal-window__form modal-window__form_add">
+                <h2 class="modal-window__title">Новое место</h2>
+                <input name="place" placeholder = "Название" class="modal-window__item modal-window__place" type="text" required>
+                <input name="link" placeholder="Ссылка на картинку" class="modal-window__item modal-window__link" type="text" required>
+                <button class="modal-window__item modal-window__submit-button" type="submit">Сохранить</button>
+                <button type="button" class="modal-window__close-button modal-window__close-button_add"></button>
+            </form>
+        </section>
+
+        <section class="pop-up">
+            <figure class="pop-up__item">
+                <img class="pop-up__image" src="" alt="Открытая картинка">
+                <figcaption class="pop-up__caption"></figcaption>
+                <button class="pop-up__close-button"></button>
+            </figure>
+            
+        </section>
     </div>
+
+    <template class="template-element">
+        <section class="element">
+            <img class="element__image" src="" alt="" >
+            <div class="element__caption">
+                <h2 class="element__title"></h2>
+                <button type="button" class="element__button-like"></button>
+            </div>
+            <button class="element__button-delete"></button>
+        </section>
+    </template>
+    
+        
     <script src="scripts/script.js"></script>
 </body>
 </html>
