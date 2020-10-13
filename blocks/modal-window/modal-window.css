@@ -4,9 +4,13 @@
     position: fixed;
     top: -45px;
     left: 0;
+    display:flex;
     background-color: RGBA(0,0,0,0.5);
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
 }
+
 
 .modal-window input:first-of-type{
     margin-bottom: 30px;
