@@ -86,11 +86,12 @@ function saveFormEditDataHandler(evt){
 function saveFormAddDataHandler(evt){
     evt.preventDefault();
     const card = templateCard.cloneNode(true);
-    formPlace.value = "";
-    formLink.value ="";
+    console.log(card);
     const cardTitle = card.querySelector('.element__title').textContent = formPlace.value;
     const cardImage = card.querySelector('.element__image').src = formLink.value;
-    cards.append(card);
+    cards.prepend(card);
+    formPlace.value = "";
+    formLink.value ="";
     closeAddWindowHandler();
 }
 
