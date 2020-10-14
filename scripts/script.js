@@ -11,18 +11,14 @@ const formLink = document.querySelector('.modal-window__link');
 const addButton = document.querySelector('.profile__add-button');
 const cards = document.querySelector('.elements');
 const templateCard = document.querySelector('.template-element').content;
-const popUpPicture = document.querySelector('.pop-up');
-const popUpPictureImg = document.querySelector('.pop-up__image');
-const popUpPictureCaption = document.querySelector('.pop-up__caption');
-const popUpPictureCloseButton = document.querySelector('.pop-up__close-button');
-
-let profileName = document.querySelector('.profile__title')
-let profileEmployment = document.querySelector('.profile__subtitle');
-let formProfileName = document.querySelector('.modal-window__name');
-let formProfileEmployment = document.querySelector('.modal-window__employment');
-
-
-
+const popUpPicture = document.querySelector('.modal-window_image');
+const popUpPictureImg = document.querySelector('.modal-window__full-image');
+const popUpPictureCaption = document.querySelector('.modal-window__image-caption');
+const popUpPictureCloseButton = document.querySelector('.modal-window__close-button_image');
+const profileName = document.querySelector('.profile__title')
+const profileEmployment = document.querySelector('.profile__subtitle');
+const formProfileName = document.querySelector('.modal-window__name');
+const formProfileEmployment = document.querySelector('.modal-window__employment');
 const initialCards = [
     {
         name: 'Архыз',
@@ -52,94 +48,111 @@ const initialCards = [
 
 initialCards.forEach(item =>{
     const card = templateCard.cloneNode(true);
-    const cardTitle = card.querySelector('.element__title').textContent = item.name;
-    const cardImage = card.querySelector('.element__image').src = item.link;
+    card.querySelector('.element__title').textContent = item.name;
+    card.querySelector('.element__image').src = item.link;
     cards.append(card);
 });
 
-
+//Функция открытия окон  
 function openWindowHandler(evt){
-    if(evt.target.classList.contains('profile__edit-button')){
-        formProfileName.value = profileName.textContent;
-        formProfileEmployment.value = profileEmployment.textContent;
-        modalWindowEdit.classList.add("modal-window_is-open");
+    if(evt.target.openParameter===undefined){
+        return false;
     }
-    else if(evt.target.classList.contains('profile__add-button')){
-        modalWindowAdd.classList.add("modal-window_is-open");
+    else{
+        evt.target.openParameter.classList.add("modal-window_is-open");
     }
-    
 }
 
-function closeEditWindowHandler(){
-    modalWindowEdit.classList.remove("modal-window_is-open");
-}  
-function closeAddWindowHandler(){
-    modalWindowAdd.classList.remove("modal-window_is-open");
+//Функция закрытия модальных окон
+function closeModalWindow(evt){
+    evt.target.closest('.modal-window').classList.remove('modal-window_is-open');
 }
+
+//Функция заполнения инпутов при открытии окна
+function profileEditOpenHandler(){
+    formProfileName.value = profileName.textContent;
+    formProfileEmployment.value = profileEmployment.textContent;
+}
+
+//Функция сохранения данных в профиль
 function saveFormEditDataHandler(evt){
     evt.preventDefault();
     profileName.textContent = formProfileName.value;
     profileEmployment.textContent = formProfileEmployment.value;
-    closeEditWindowHandler();
+    closeModalWindow(evt);
 }
 
+//Функция добавления карточек
 function saveFormAddDataHandler(evt){
     evt.preventDefault();
     const card = templateCard.cloneNode(true);
-    console.log(card);
-    const cardTitle = card.querySelector('.element__title').textContent = formPlace.value;
-    const cardImage = card.querySelector('.element__image').src = formLink.value;
+    card.querySelector('.element__title').textContent = formPlace.value;
+    card.querySelector('.element__image').src = formLink.value;
     cards.prepend(card);
     formPlace.value = "";
     formLink.value ="";
-    closeAddWindowHandler();
+    initialParametersCard();
+    closeModalWindow(evt);
 }
 
+//функция удаления карточек
 function deleteCardHandler(evt){
-    let target = evt.target;
+    const target = evt.target;
     if(target.classList.contains('element__button-delete')){
-        target.parentElement.parentElement.removeChild(target.parentElement);
-        return false;
-    }
-    else{
-        return false;
+        target.closest('.elements').removeChild(target.parentElement);
     }
 }
 
+//Функция лайк
 function likeCardHandler(evt){
-    let target = evt.target;
+    const target = evt.target;
     if(target.classList.contains('element__button-like')){
         target.classList.toggle('element__button-like_active');
-        return false;
-    }
-    else{
-        return false;
     }
 }
 
+//Функция инициализация данных картинки и подписи к картинкам
 function viewCardHandler(evt){
-    let target = evt.target;
-    if(target.classList.contains('element__image')){
+    if(evt.target.classList.contains('element__image')){
         popUpPictureImg.src = evt.target.src;
-        popUpPictureCaption.textContent = evt.target.nextElementSibling.firstElementChild.textContent;
-        popUpPicture.classList.add('pop-up_is-open');
-    }
-    else{
-        return false;
+        popUpPictureCaption.textContent = evt.target.nextElementSibling.querySelector('.element__title').textContent;
     }
 }
 
-function closePopUpPicture(){
-    popUpPicture.classList.remove('pop-up_is-open');
+//Функция инициализации параметров для картинок
+function initialParametersCard(){
+    cards.querySelectorAll('.element__image').forEach(item =>{
+        item.openParameter = popUpPicture;
+    });
 }
 
+//Инициализация параметров для открытия модальных окон
+profileEdit.openParameter = modalWindowEdit;
+addButton.openParameter = modalWindowAdd;
+initialParametersCard();
+
+//Слушатели открытия окон
 addButton.addEventListener('click', openWindowHandler);
 profileEdit.addEventListener('click', openWindowHandler);
-modalWindowCloseEdit.addEventListener('click', closeEditWindowHandler);
-modalWindowCloseAdd.addEventListener('click', closeAddWindowHandler);
+cards.addEventListener('click', openWindowHandler);
+//Слушатели закрытия окон
+popUpPictureCloseButton.addEventListener('click', closeModalWindow);
+modalWindowCloseEdit.addEventListener('click', closeModalWindow);
+modalWindowCloseAdd.addEventListener('click', closeModalWindow);
+
+//Слушатель инициализации инпутов
+profileEdit.addEventListener('click', profileEditOpenHandler);
+
+
+//Слушатели изменения профиля и добавления карточек
 formEdit.addEventListener('submit', saveFormEditDataHandler);
 formAdd.addEventListener('submit', saveFormAddDataHandler);
+
+//Слушатель удаления карточки
 cards.addEventListener('click', deleteCardHandler);
+
+//Слушатель лайк
 cards.addEventListener('click', likeCardHandler);
+
+//Слушатель открытия карточки
 cards.addEventListener('click', viewCardHandler);
-popUpPictureCloseButton.addEventListener('click', closePopUpPicture);
