@@ -1,6 +1,5 @@
 const modalWindowEdit = document.querySelector('.modal-window_edit');
-const modalWindowAdd = document.querySelector('.modal-window_add') 
-const modalWindow = document.querySelectorAll('.modal-window');
+const modalWindowAdd = document.querySelector('.modal-window_add');
 const modalWindowCloseEdit = document.querySelector('.modal-window__close-button_edit');
 const modalWindowCloseAdd = document.querySelector('.modal-window__close-button_add');
 const profileEdit = document.querySelector('.profile__edit-button');
@@ -47,25 +46,22 @@ const initialCards = [
 ];
 
 initialCards.forEach(item =>{
-    const card = templateCard.cloneNode(true);
+    const card = templateElement();
     card.querySelector('.element__title').textContent = item.name;
     card.querySelector('.element__image').src = item.link;
+    clickCardImg(card.querySelector('.element__image'));
     cards.append(card);
 });
 
-//Функция открытия окон  
-function openWindowHandler(evt){
-    if(evt.target.openParameter===undefined){
-        return false;
-    }
-    else{
-        evt.target.openParameter.classList.add("modal-window_is-open");
-    }
+
+//Функция клонирования template элемента
+function templateElement(){
+    return templateCard.cloneNode(true);
 }
 
-//Функция закрытия модальных окон
-function closeModalWindow(evt){
-    evt.target.closest('.modal-window').classList.remove('modal-window_is-open');
+//Функция открытия окон и закрытия окон
+function openAndCloseWindowHandler(thisWindow){
+    thisWindow.classList.toggle('modal-window_is-open');
 }
 
 //Функция заполнения инпутов при открытии окна
@@ -79,27 +75,27 @@ function saveFormEditDataHandler(evt){
     evt.preventDefault();
     profileName.textContent = formProfileName.value;
     profileEmployment.textContent = formProfileEmployment.value;
-    closeModalWindow(evt);
+    openAndCloseWindowHandler(modalWindowEdit);
 }
 
 //Функция добавления карточек
 function saveFormAddDataHandler(evt){
     evt.preventDefault();
-    const card = templateCard.cloneNode(true);
+    const card = templateElement();
     card.querySelector('.element__title').textContent = formPlace.value;
     card.querySelector('.element__image').src = formLink.value;
+    clickCardImg(card.querySelector('.element__image'));
     cards.prepend(card);
     formPlace.value = "";
     formLink.value ="";
-    initialParametersCard();
-    closeModalWindow(evt);
+    openAndCloseWindowHandler(modalWindowAdd);
 }
 
 //функция удаления карточек
 function deleteCardHandler(evt){
     const target = evt.target;
     if(target.classList.contains('element__button-delete')){
-        target.closest('.elements').removeChild(target.parentElement);
+        target.closest('.element').remove();
     }
 }
 
@@ -119,40 +115,32 @@ function viewCardHandler(evt){
     }
 }
 
-//Функция инициализации параметров для картинок
-function initialParametersCard(){
-    cards.querySelectorAll('.element__image').forEach(item =>{
-        item.openParameter = popUpPicture;
-    });
+//Функция обработки клика по изображения
+function clickCardImg(cardImg){
+    cardImg.addEventListener('click',() => openAndCloseWindowHandler(popUpPicture));
 }
 
-//Инициализация параметров для открытия модальных окон
-profileEdit.openParameter = modalWindowEdit;
-addButton.openParameter = modalWindowAdd;
-initialParametersCard();
-
 //Слушатели открытия окон
-addButton.addEventListener('click', openWindowHandler);
-profileEdit.addEventListener('click', openWindowHandler);
-cards.addEventListener('click', openWindowHandler);
+addButton.addEventListener('click', () => openAndCloseWindowHandler(modalWindowAdd));
+
+//Слушатель открытия и заполнения инпутов
+profileEdit.addEventListener('click', () =>{
+    openAndCloseWindowHandler(modalWindowEdit);
+    profileEditOpenHandler();
+});
+
 //Слушатели закрытия окон
-popUpPictureCloseButton.addEventListener('click', closeModalWindow);
-modalWindowCloseEdit.addEventListener('click', closeModalWindow);
-modalWindowCloseAdd.addEventListener('click', closeModalWindow);
-
-//Слушатель инициализации инпутов
-profileEdit.addEventListener('click', profileEditOpenHandler);
-
+popUpPictureCloseButton.addEventListener('click',() => openAndCloseWindowHandler(popUpPicture));
+modalWindowCloseEdit.addEventListener('click',() =>  openAndCloseWindowHandler(modalWindowEdit));
+modalWindowCloseAdd.addEventListener('click', () => openAndCloseWindowHandler(modalWindowAdd));
 
 //Слушатели изменения профиля и добавления карточек
 formEdit.addEventListener('submit', saveFormEditDataHandler);
 formAdd.addEventListener('submit', saveFormAddDataHandler);
 
-//Слушатель удаления карточки
-cards.addEventListener('click', deleteCardHandler);
-
-//Слушатель лайк
-cards.addEventListener('click', likeCardHandler);
-
-//Слушатель открытия карточки
-cards.addEventListener('click', viewCardHandler);
+//Слушатель удаления карточки, открытия карточки и лайка
+cards.addEventListener('click', (evt) =>{
+    deleteCardHandler(evt);
+    likeCardHandler(evt);
+    viewCardHandler(evt);
+});
