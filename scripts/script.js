@@ -107,6 +107,7 @@ function initPopUpPicture(item){
     popUpPictureImg.src = item.link;
     openAndCloseWindowHandler(popUpPicture);
 }
+
 //функция удаления карточек
 function deleteCardHandler(buttonCardDelete){
     buttonCardDelete.closest('.element').remove();
