@@ -44,10 +44,11 @@ const initialCards = [
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
 ];
+let counterCard = 0;
 
 //Инициализация массива
 initialCards.forEach(item =>{
-    addCard(item);
+    initCard(item);
 });
 
 //Функция клонирования template элемента
@@ -81,24 +82,35 @@ function saveFormAddDataHandler(evt){
         name: formPlace.value,
         link: formLink.value
     };
-    addCard(item);
+    initCard(item);
     formPlace.value = "";
     formLink.value ="";
     openAndCloseWindowHandler(modalWindowAdd);
 }
 
-//Функция добавления карточек
-function addCard(item){
+//Функция инициализации карточек
+function initCard(item){
     const card = templateElement();
     const buttonCardLike = card.querySelector('.element__button-like');
     const buttonCardDelete = card.querySelector('.element__button-delete');
     const cardImg = card.querySelector('.element__image');
     card.querySelector('.element__title').textContent = item.name;
-    card.querySelector('.element__image').src = item.link;
-    card.querySelector('.element__image').addEventListener('click',() => initPopUpPicture(item));
+    cardImg.src = item.link;
+    cardImg.addEventListener('click',() => initPopUpPicture(item));
     buttonCardLike.addEventListener('click', () => likeCardHandler(buttonCardLike));
     buttonCardDelete.addEventListener('click',()=> deleteCardHandler(buttonCardDelete));
-    cards.prepend(card);
+    addCard(card);
+}
+
+//Функция добавления карточек
+function addCard(card){
+    if(counterCard<initialCards.length){
+        cards.append(card);
+    }
+    else{
+        cards.prepend(card);
+    }
+    counterCard++;
 }
 
 //Инициализация модального окна с картинкой
