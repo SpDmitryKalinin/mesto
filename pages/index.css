@@ -48,8 +48,7 @@
 @import url(../blocks/modal-window/__container-full-image/modal-window__container-full-image.css);
 @import url(../blocks/modal-window/__full-image/modal-window__full-image.css);
 @import url(../blocks/modal-window/__image-caption/modal-window__image-caption.css);
-
-
+@import url(../blocks/modal-window/_image/modal-window_image.css);
 
 
 

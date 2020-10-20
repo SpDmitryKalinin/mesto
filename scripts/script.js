@@ -48,7 +48,7 @@ let counterCard = 0;
 
 //Инициализация массива
 initialCards.forEach(item =>{
-    initCard(item);
+    cards.append(initCard(item));
 });
 
 //Функция клонирования template элемента
@@ -82,9 +82,9 @@ function saveFormAddDataHandler(evt){
         name: formPlace.value,
         link: formLink.value
     };
-    initCard(item);
     formPlace.value = "";
     formLink.value ="";
+    cards.prepend(initCard(item));
     openAndCloseWindowHandler(modalWindowAdd);
 }
 
@@ -99,18 +99,7 @@ function initCard(item){
     cardImg.addEventListener('click',() => initPopUpPicture(item));
     buttonCardLike.addEventListener('click', () => likeCardHandler(buttonCardLike));
     buttonCardDelete.addEventListener('click',()=> deleteCardHandler(buttonCardDelete));
-    addCard(card);
-}
-
-//Функция добавления карточек
-function addCard(card){
-    if(counterCard<initialCards.length){
-        cards.append(card);
-    }
-    else{
-        cards.prepend(card);
-    }
-    counterCard++;
+    return card;
 }
 
 //Инициализация модального окна с картинкой
