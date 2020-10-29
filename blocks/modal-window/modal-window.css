@@ -19,3 +19,11 @@
 .modal-window input:last-of-type{
     margin-bottom: 48px;
 }
+
+.modal-window span:first-of-type{
+    top: -26px;
+}
+
+.modal-window span:last-of-type{
+    top: -44px;
+}

@@ -32,20 +32,24 @@
         </footer>
         
         <section class="modal-window modal-window_edit">
-            <form name="profile" class="modal-window__form modal-window__form_edit">
+            <form name="profile" class="modal-window__form modal-window__form_edit" novalidate>
                 <h2 class="modal-window__title">Редактировать профиль</h2>
-                <input name="name" class="modal-window__item modal-window__name" type="text" required>
-                <input name="emloyment" class="modal-window__item modal-window__employment" type="text" required>
+                <input name="name" class="modal-window__item modal-window__name" type="text" required minlength="2" maxlength="40">
+                <span class="modal-window__type-error">Вы пропустили это поле</span>
+                <input name="emloyment" class="modal-window__item modal-window__employment" type="text" minlength="2" maxlength="200" required>
+                <span class="modal-window__type-error">Вы пропустили это поле</span>
                 <button class="modal-window__item modal-window__submit-button" type="submit">Сохранить</button>
                 <button type="button" class="modal-window__close-button modal-window__close-button_edit"></button>
             </form>
         </section>
 
         <section class="modal-window modal-window_add">
-            <form name="profile" class="modal-window__form modal-window__form_add">
+            <form name="profile" class="modal-window__form modal-window__form_add" novalidate>
                 <h2 class="modal-window__title">Новое место</h2>
-                <input name="place" placeholder = "Название" class="modal-window__item modal-window__place" type="text" required>
-                <input name="link" placeholder="Ссылка на картинку" class="modal-window__item modal-window__link" type="text" required>
+                <input name="place" placeholder = "Название" class="modal-window__item modal-window__place" type="text" required minlength="2" maxlength="30">
+                <span class="modal-window__type-error">hhhh</span>
+                <input type="url" name="link" placeholder="Ссылка на картинку" class="modal-window__item modal-window__link" type="text" required>
+                <span class="modal-window__type-error">Вы пропустили это поле</span>
                 <button class="modal-window__item modal-window__submit-button" type="submit">Сохранить</button>
                 <button type="button" class="modal-window__close-button modal-window__close-button_add"></button>
             </form>

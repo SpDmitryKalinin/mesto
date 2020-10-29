@@ -18,6 +18,8 @@ const profileName = document.querySelector('.profile__title')
 const profileEmployment = document.querySelector('.profile__subtitle');
 const formProfileName = document.querySelector('.modal-window__name');
 const formProfileEmployment = document.querySelector('.modal-window__employment');
+const overlay = document.querySelector('.modal-window__container-full-image');
+const overlays = Array.from(document.querySelectorAll('.modal-window'));
 const initialCards = [
     {
         name: 'Архыз',
@@ -58,6 +60,7 @@ function templateElement(){
 //Функция открытия окон и закрытия окон
 function openAndCloseWindowHandler(thisWindow){
     thisWindow.classList.toggle('modal-window_is-open');
+    document.removeEventListener('keydown', (evt) =>checkButton(evt, overlay));
 }
 
 //Функция заполнения инпутов при открытии окна
@@ -127,11 +130,95 @@ profileEdit.addEventListener('click', () =>{
     profileEditOpenHandler();
 });
 
+const object = ({
+    formSelector: '.modal-window__form',
+    inputSelector: '.modal-window__item',
+    submitButtonSelector: '.modal-window__submit-button',
+    inactiveButtonClass: 'modal-window__submit-button_disabled',
+    inputErrorClass: 'modal-window__item_error',
+    errorClass: 'modal-window__type-error_active' 
+}); 
+
+//Функция запускающая валидацию
+enableValidation(object);
+function enableValidation({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}){
+    const forms = Array.from(document.querySelectorAll(formSelector));
+    setAddEventListeners(forms, inputSelector, errorClass, inputErrorClass, submitButtonSelector, inactiveButtonClass);
+}
+
+//Функция добавляет слушаетели на все инпуты
+function setAddEventListeners(forms, inputSelector, errorClass, inputErrorClass, submitButtonSelector, inactiveButtonClass){
+    forms.forEach(form => {
+        const inputList = Array.from(form.querySelectorAll(inputSelector));
+        inputList.forEach(input =>{
+            input.addEventListener('input', (evt) => {
+                validateInputs(evt, form, errorClass, inputErrorClass, submitButtonSelector, inactiveButtonClass);
+            });
+        });
+    });
+}
+
+//Функция валидации инпутов на ошибки
+function validateInputs(evt, form, errorClass, inputErrorClass, submitButtonSelector, inactiveButtonClass){
+    if(!evt.target.validity.valid){
+        evt.target.classList.add(inputErrorClass);
+        evt.target.nextElementSibling.classList.add(errorClass);
+        evt.target.nextElementSibling.textContent = evt.target.validationMessage;
+    }
+    if(evt.target.validity.valid){
+        evt.target.classList.remove(inputErrorClass);
+        evt.target.nextElementSibling.classList.remove(errorClass);
+        evt.target.nextElementSibling.textContent = "";
+    }
+    const check = validateForm(inputListThisForm = Array.from(form.querySelectorAll('.modal-window__item')));
+    activeOrDisabledSubmit(check, form, submitButtonSelector, inactiveButtonClass);
+}
+
+//Функция валидации всей формы
+function validateForm(inputListThisForm){
+    const isValid = inputListThisForm.some((inputElement) => {
+        return !inputElement.validity.valid;
+    })
+    return !isValid;
+} 
+
+//Функция включения и выключения кнопки сабмит
+function activeOrDisabledSubmit(check, form, submitButtonSelector, inactiveButtonClass){
+    if(check){
+        form.querySelector(submitButtonSelector).classList.remove(inactiveButtonClass);
+        form.querySelector(submitButtonSelector).removeAttribute("disabled");
+    }
+    else{
+        form.querySelector(submitButtonSelector).classList.add(inactiveButtonClass);
+        form.querySelector(submitButtonSelector).setAttribute("disabled", "disabled");
+    }
+}
+
+//Проверка слушателей
+function checkButton(evt){
+    thisWindows = document.querySelector('.modal-window_is-open');
+    if(thisWindows === null){
+
+    }
+    if(evt.keyCode === 27){
+        openAndCloseWindowHandler(thisWindows);
+    }
+}
+
+//Создание слушателей закрытия окон по оверлею
+overlays.forEach(overlay =>{
+    overlay.addEventListener('click', (evt) => {
+        if(evt.target.classList.contains('modal-window')){
+            openAndCloseWindowHandler(overlay);
+        }
+    });
+});
+
 //Слушатели закрытия окон
-popUpPictureCloseButton.addEventListener('click',() => openAndCloseWindowHandler(popUpPicture));
+document.addEventListener('keydown', (evt) =>checkButton(evt));
 modalWindowCloseEdit.addEventListener('click',() =>  openAndCloseWindowHandler(modalWindowEdit));
 modalWindowCloseAdd.addEventListener('click', () => openAndCloseWindowHandler(modalWindowAdd));
-
+popUpPictureCloseButton.addEventListener('click',() => openAndCloseWindowHandler(popUpPicture));
 //Слушатели изменения профиля и добавления карточек
 formEdit.addEventListener('submit', saveFormEditDataHandler);
 formAdd.addEventListener('submit', saveFormAddDataHandler);
