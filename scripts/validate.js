@@ -7,13 +7,6 @@ const object = ({
     errorClass: 'modal-window__type-error_active' 
 }); 
 
-//Функция запускающая валидацию
-enableValidation(object);
-function enableValidation({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}){
-    const forms = Array.from(document.querySelectorAll(formSelector));
-    setAddEventListeners(forms, inputSelector, errorClass, inputErrorClass, submitButtonSelector, inactiveButtonClass);
-}
-
 //Функция добавляет слушаетели на все инпуты
 function setAddEventListeners(forms, inputSelector, errorClass, inputErrorClass, submitButtonSelector, inactiveButtonClass){
     forms.forEach(form => {
@@ -48,4 +41,24 @@ function validateForm(inputListThisForm){
         return !inputElement.validity.valid;
     })
     return !isValid;
-} 
+}
+
+//Функция включения и выключения кнопки сабмит
+function activeOrDisabledSubmit(check, form, submitButtonSelector, inactiveButtonClass){
+    const submitButton = form.querySelector(submitButtonSelector);
+    if(check){
+        submitButton.classList.remove(inactiveButtonClass);
+        submitButton.removeAttribute("disabled");
+    }
+    else{
+        submitButton.classList.add(inactiveButtonClass);
+        submitButton.setAttribute("disabled", "disabled");
+    }
+}
+
+//Функция запускающая валидацию
+enableValidation(object);
+function enableValidation({formSelector, inputSelector, submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}){
+    const forms = Array.from(document.querySelectorAll(formSelector));
+    setAddEventListeners(forms, inputSelector, errorClass, inputErrorClass, submitButtonSelector, inactiveButtonClass);
+}

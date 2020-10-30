@@ -58,9 +58,14 @@ function templateElement(){
 }
 
 //Функция открытия окон и закрытия окон
-function openAndCloseWindowHandler(thisWindow){
+function toggleModal(thisWindow){
     thisWindow.classList.toggle('modal-window_is-open');
-    document.removeEventListener('keydown', (evt) =>checkButton(evt, overlay));
+    if(thisWindow.classList.contains('modal-window_is-open')){
+        document.addEventListener('keydown', checkButton);
+    }
+    else{
+        document.removeEventListener('keydown', checkButton);
+    }
 }
 
 //Функция заполнения инпутов при открытии окна
@@ -74,7 +79,7 @@ function saveFormEditDataHandler(evt){
     evt.preventDefault();
     profileName.textContent = formProfileName.value;
     profileEmployment.textContent = formProfileEmployment.value;
-    openAndCloseWindowHandler(modalWindowEdit);
+    toggleModal(modalWindowEdit);
 }
 
 //Функция передачи значений из формы добавления карточек
@@ -87,7 +92,7 @@ function saveFormAddDataHandler(evt){
     formPlace.value = "";
     formLink.value ="";
     cards.prepend(initCard(item));
-    openAndCloseWindowHandler(modalWindowAdd);
+    toggleModal(modalWindowAdd);
 }
 
 //Функция инициализации карточек
@@ -98,6 +103,7 @@ function initCard(item){
     const cardImg = card.querySelector('.element__image');
     card.querySelector('.element__title').textContent = item.name;
     cardImg.src = item.link;
+    cardImg.alt = item.name;
     cardImg.addEventListener('click',() => initPopUpPicture(item));
     buttonCardLike.addEventListener('click', () => likeCardHandler(buttonCardLike));
     buttonCardDelete.addEventListener('click',()=> deleteCardHandler(buttonCardDelete));
@@ -108,7 +114,8 @@ function initCard(item){
 function initPopUpPicture(item){
     popUpPictureCaption.textContent = item.name;
     popUpPictureImg.src = item.link;
-    openAndCloseWindowHandler(popUpPicture);
+    popUpPictureImg.alt = item.name;
+    toggleModal(popUpPicture);
 }
 
 //функция удаления карточек
@@ -122,25 +129,14 @@ function likeCardHandler(buttonCardLike){
 }
 
 //Слушатели открытия окон
-addButton.addEventListener('click', () => openAndCloseWindowHandler(modalWindowAdd));
+addButton.addEventListener('click', () => toggleModal(modalWindowAdd));
 
 //Слушатель открытия и заполнения инпутов
 profileEdit.addEventListener('click', () =>{
-    openAndCloseWindowHandler(modalWindowEdit);
+    toggleModal(modalWindowEdit);
     profileEditOpenHandler();
 });
 
-//Функция включения и выключения кнопки сабмит
-function activeOrDisabledSubmit(check, form, submitButtonSelector, inactiveButtonClass){
-    if(check){
-        form.querySelector(submitButtonSelector).classList.remove(inactiveButtonClass);
-        form.querySelector(submitButtonSelector).removeAttribute("disabled");
-    }
-    else{
-        form.querySelector(submitButtonSelector).classList.add(inactiveButtonClass);
-        form.querySelector(submitButtonSelector).setAttribute("disabled", "disabled");
-    }
-}
 
 //Проверка слушателей
 function checkButton(evt){
@@ -149,7 +145,7 @@ function checkButton(evt){
         return 0;
     }
     if(evt.keyCode === 27){
-        openAndCloseWindowHandler(thisWindows);
+        toggleModal(thisWindows);
     }
 }
 
@@ -157,16 +153,15 @@ function checkButton(evt){
 overlays.forEach(overlay =>{
     overlay.addEventListener('click', (evt) => {
         if(evt.target.classList.contains('modal-window')){
-            openAndCloseWindowHandler(overlay);
+            toggleModal(overlay);
         }
     });
 });
 
 //Слушатели закрытия окон
-document.addEventListener('keydown', (evt) =>checkButton(evt));
-modalWindowCloseEdit.addEventListener('click',() =>  openAndCloseWindowHandler(modalWindowEdit));
-modalWindowCloseAdd.addEventListener('click', () => openAndCloseWindowHandler(modalWindowAdd));
-popUpPictureCloseButton.addEventListener('click',() => openAndCloseWindowHandler(popUpPicture));
+modalWindowCloseEdit.addEventListener('click',() =>  toggleModal(modalWindowEdit));
+modalWindowCloseAdd.addEventListener('click', () => toggleModal(modalWindowAdd));
+popUpPictureCloseButton.addEventListener('click',() => toggleModal(popUpPicture));
 //Слушатели изменения профиля и добавления карточек
 formEdit.addEventListener('submit', saveFormEditDataHandler);
 formAdd.addEventListener('submit', saveFormAddDataHandler);
