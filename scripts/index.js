@@ -1,3 +1,6 @@
+import{Card} from './Card.js';
+import{FormValidator} from './FormValidator.js';
+export{popUpPictureCaption, popUpPictureImg, popUpPicture, toggleModal};
 const modalWindowEdit = document.querySelector('.modal-window_edit');
 const modalWindowAdd = document.querySelector('.modal-window_add');
 const modalWindowCloseEdit = document.querySelector('.modal-window__close-button_edit');
@@ -14,7 +17,7 @@ const popUpPicture = document.querySelector('.modal-window_image');
 const popUpPictureImg = document.querySelector('.modal-window__full-image');
 const popUpPictureCaption = document.querySelector('.modal-window__image-caption');
 const popUpPictureCloseButton = document.querySelector('.modal-window__close-button_image');
-const profileName = document.querySelector('.profile__title')
+const profileName = document.querySelector('.profile__title');
 const profileEmployment = document.querySelector('.profile__subtitle');
 const formProfileName = document.querySelector('.modal-window__name');
 const formProfileEmployment = document.querySelector('.modal-window__employment');
@@ -47,15 +50,24 @@ const initialCards = [
     }
 ];
 
+const object = ({
+    formSelector: '.modal-window__form',
+    inputSelector: '.modal-window__item',
+    submitButtonSelector: '.modal-window__submit-button',
+    inactiveButtonClass: 'modal-window__submit-button_disabled',
+    inputErrorClass: 'modal-window__item_error',
+    errorClass: 'modal-window__type-error_active' 
+}); 
+
+const classValidation = new FormValidator(object);
+const enableclassValidation = classValidation.enableValidation();
+
 //Инициализация массива
 initialCards.forEach(item =>{
-    cards.append(initCard(item));
+    const card = new Card(item, templateCard);
+    const cardElementClass = card.returnCardElement();
+    cards.prepend(cardElementClass);
 });
-
-//Функция клонирования template элемента
-function templateElement(){
-    return templateCard.cloneNode(true);
-}
 
 //Функция открытия окон и закрытия окон
 function toggleModal(thisWindow){
@@ -91,41 +103,13 @@ function saveFormAddDataHandler(evt){
     };
     formPlace.value = "";
     formLink.value ="";
-    cards.prepend(initCard(item));
+    const card = new Card(item, templateCard);
+    const cardElementClass = card.returnCardElement();
+    cards.prepend(cardElementClass);
+    const addSubmitButton = formAdd.querySelector('.modal-window__submit-button')
+    addSubmitButton.setAttribute('disabled', 'disabled');
+    addSubmitButton.classList.add('modal-window__submit-button_disabled');
     toggleModal(modalWindowAdd);
-}
-
-//Функция инициализации карточек
-function initCard(item){
-    const card = templateElement();
-    const buttonCardLike = card.querySelector('.element__button-like');
-    const buttonCardDelete = card.querySelector('.element__button-delete');
-    const cardImg = card.querySelector('.element__image');
-    card.querySelector('.element__title').textContent = item.name;
-    cardImg.src = item.link;
-    cardImg.alt = item.name;
-    cardImg.addEventListener('click',() => initPopUpPicture(item));
-    buttonCardLike.addEventListener('click', () => likeCardHandler(buttonCardLike));
-    buttonCardDelete.addEventListener('click',()=> deleteCardHandler(buttonCardDelete));
-    return card;
-}
-
-//Инициализация модального окна с картинкой
-function initPopUpPicture(item){
-    popUpPictureCaption.textContent = item.name;
-    popUpPictureImg.src = item.link;
-    popUpPictureImg.alt = item.name;
-    toggleModal(popUpPicture);
-}
-
-//функция удаления карточек
-function deleteCardHandler(buttonCardDelete){
-    buttonCardDelete.closest('.element').remove();
-}
-
-//Функция лайк
-function likeCardHandler(buttonCardLike){
-    buttonCardLike.classList.toggle('element__button-like_active')
 }
 
 //Слушатели открытия окон
@@ -137,15 +121,14 @@ profileEdit.addEventListener('click', () =>{
     profileEditOpenHandler();
 });
 
-
 //Проверка слушателей
 function checkButton(evt){
-    thisWindows = document.querySelector('.modal-window_is-open');
-    if(thisWindows === null){
+    const activeWindows = document.querySelector('.modal-window_is-open');
+    if(activeWindows === null){
         return 0;
     }
     if(evt.keyCode === 27){
-        toggleModal(thisWindows);
+        toggleModal(activeWindows);
     }
 }
 
@@ -165,3 +148,4 @@ popUpPictureCloseButton.addEventListener('click',() => toggleModal(popUpPicture)
 //Слушатели изменения профиля и добавления карточек
 formEdit.addEventListener('submit', saveFormEditDataHandler);
 formAdd.addEventListener('submit', saveFormAddDataHandler);
+
