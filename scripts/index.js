@@ -1,6 +1,6 @@
 import{Card} from './Card.js';
 import{FormValidator} from './FormValidator.js';
-export{popUpPictureCaption, popUpPictureImg, popUpPicture, toggleModal};
+export{initPopUpPicture};
 const modalWindowEdit = document.querySelector('.modal-window_edit');
 const modalWindowAdd = document.querySelector('.modal-window_add');
 const modalWindowCloseEdit = document.querySelector('.modal-window__close-button_edit');
@@ -23,6 +23,7 @@ const formProfileName = document.querySelector('.modal-window__name');
 const formProfileEmployment = document.querySelector('.modal-window__employment');
 const overlay = document.querySelector('.modal-window__container-full-image');
 const overlays = Array.from(document.querySelectorAll('.modal-window'));
+const forms = Array.from(document.querySelectorAll('.modal-window__form'));
 const initialCards = [
     {
         name: 'Архыз',
@@ -59,15 +60,22 @@ const object = ({
     errorClass: 'modal-window__type-error_active' 
 }); 
 
-const classValidation = new FormValidator(object);
-const enableclassValidation = classValidation.enableValidation();
+forms.forEach(form => {
+    const classValidation = new FormValidator(object, form);
+    classValidation.enableValidation();
+});
 
 //Инициализация массива
 initialCards.forEach(item =>{
-    const card = new Card(item, templateCard);
-    const cardElementClass = card.returnCardElement();
-    cards.prepend(cardElementClass);
+    cards.prepend(createCard(item, templateCard, initPopUpPicture));
 });
+
+//Функция создания карточки
+function createCard(item){
+    const card = new Card(item, templateCard, initPopUpPicture);
+    const cardElementClass = card.returnCardElement();
+    return cardElementClass
+}
 
 //Функция открытия окон и закрытия окон
 function toggleModal(thisWindow){
@@ -88,7 +96,6 @@ function profileEditOpenHandler(){
 
 //Функция сохранения данных в профиль
 function saveFormEditDataHandler(evt){
-    evt.preventDefault();
     profileName.textContent = formProfileName.value;
     profileEmployment.textContent = formProfileEmployment.value;
     toggleModal(modalWindowEdit);
@@ -96,16 +103,13 @@ function saveFormEditDataHandler(evt){
 
 //Функция передачи значений из формы добавления карточек
 function saveFormAddDataHandler(evt){
-    evt.preventDefault();
     const item = {
         name: formPlace.value,
         link: formLink.value
     };
     formPlace.value = "";
     formLink.value ="";
-    const card = new Card(item, templateCard);
-    const cardElementClass = card.returnCardElement();
-    cards.prepend(cardElementClass);
+    cards.prepend(createCard(item, templateCard, initPopUpPicture));
     const addSubmitButton = formAdd.querySelector('.modal-window__submit-button')
     addSubmitButton.setAttribute('disabled', 'disabled');
     addSubmitButton.classList.add('modal-window__submit-button_disabled');
@@ -140,6 +144,14 @@ overlays.forEach(overlay =>{
         }
     });
 });
+
+//Инициализация окна pop-up с картинкой 
+function initPopUpPicture(item){
+    popUpPictureCaption.textContent = item.name;
+    popUpPictureImg.src = item.link;
+    popUpPictureImg.alt = item.name;
+    toggleModal(popUpPicture);
+}
 
 //Слушатели закрытия окон
 modalWindowCloseEdit.addEventListener('click',() =>  toggleModal(modalWindowEdit));

@@ -1,27 +1,29 @@
 export{FormValidator};
 
 class FormValidator{
-    constructor(data){
+    constructor(data, form){
         this.data = data;
+        this.form = form;
+        this._inputList = Array.from(form.querySelectorAll(this.data.inputSelector));
+        this._submitButton = this.form.querySelector(this.data.submitButtonSelector);
     }
     //Функция запускающая валидацию
     enableValidation(){
-        const forms = Array.from(document.querySelectorAll(this.data.formSelector));
-        this._setAddEventListeners(forms);
+        this._setAddEventListeners(this.form);
     }
     //Функция добавляет слушаетели на все инпуты
-    _setAddEventListeners(forms){
-        forms.forEach(form => {
-            const inputList = Array.from(form.querySelectorAll(this.data.inputSelector));
-            inputList.forEach(input =>{
-                input.addEventListener('input', (evt) => {
-                    this._validateInputs(evt, form);
-                });
+    _setAddEventListeners(){
+        this._inputList.forEach(input =>{
+            input.addEventListener('input', (evt) => {
+                this._validateInputs(evt, this.form);
             });
         });
+        this.form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+          });
     }
     //Функция валидации инпутов на ошибки
-    _validateInputs(evt, form){
+    _validateInputs(evt){
         if(!evt.target.validity.valid){
             evt.target.classList.add(this.data.inputErrorClass);
             evt.target.nextElementSibling.classList.add(this.data.errorClass);
@@ -32,28 +34,26 @@ class FormValidator{
             evt.target.nextElementSibling.classList.remove(this.data.errorClass);
             evt.target.nextElementSibling.textContent = "";
         }
-        const inputListThisForm = Array.from(form.querySelectorAll('.modal-window__item'));
-        const check = this._validateForm(inputListThisForm);
-        this._activeOrDisabledSubmit(check, form);
+        const check = this._validateForm();
+        this._activeOrDisabledSubmit(check);
     }
     
     //Функция валидации всей формы
-    _validateForm(inputListThisForm){
-        const isValid = inputListThisForm.some((inputElement) => {
+    _validateForm(){
+        const isValid = this._inputList.some((inputElement) => {
             return !inputElement.validity.valid;
         })
         return !isValid;
     }
     //Функция включения и выключения кнопки сабмит
-    _activeOrDisabledSubmit(check, form){
-        const submitButton = form.querySelector(this.data.submitButtonSelector);
+    _activeOrDisabledSubmit(check){
         if(check){
-            submitButton.classList.remove(this.data.inactiveButtonClass);
-            submitButton.removeAttribute("disabled");
+            this._submitButton.classList.remove(this.data.inactiveButtonClass);
+            this._submitButton.removeAttribute("disabled");
         }
         else{
-            submitButton.classList.add(this.data.inactiveButtonClass);
-            submitButton.setAttribute("disabled", "disabled");
+            this._submitButton.classList.add(this.data.inactiveButtonClass);
+            this._submitButton.setAttribute("disabled", "disabled");
         }
     }
 }

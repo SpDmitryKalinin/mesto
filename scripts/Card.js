@@ -1,10 +1,10 @@
 export {Card};
-import {popUpPictureCaption, popUpPictureImg, popUpPicture, toggleModal} from './index.js';
 
 class Card{
-    constructor(item, templateSelector){
+    constructor(item, template, initPopUpPicture){
         this.item = item;
-        this.tmp = templateSelector; 
+        this._template = template;
+        this._initPopUpPicture = initPopUpPicture; 
     }
     
     //Публичный метод возвращающий готовую карточку
@@ -15,7 +15,7 @@ class Card{
 
     //Приватный метод копирования разметки темплейт элемента
     _templateClone(){
-        return this.tmp.cloneNode(true);
+        return this._template.cloneNode(true);
     }
 
     //Приватный метод инициализации карточек
@@ -35,14 +35,6 @@ class Card{
         buttonImg.addEventListener('click',() => this._initPopUpPicture(this.item));
         buttonLike.addEventListener('click', () => this._likeCardHandler(buttonLike));
         buttonDelete.addEventListener('click',()=> this._deleteCardHandler(buttonDelete));
-    }
-
-    //Приватный метод инициализации попапа с картинкой
-    _initPopUpPicture(item){
-        popUpPictureCaption.textContent = item.name;
-        popUpPictureImg.src = item.link;
-        popUpPictureImg.alt = item.name;
-        toggleModal(popUpPicture);
     }
 
     //Приватный метод лайка карточки
