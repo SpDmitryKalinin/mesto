@@ -1,10 +1,14 @@
 import{Card} from './Card.js';
 import{FormValidator} from './FormValidator.js';
-export{initPopUpPicture};
+import{Section} from './Section.js';
+import{PopupWithImage} from './PopupWithImage.js';
+import{PopupWithForm} from './PopupWithForm.js';
+import{UserInfo} from './UserInfo.js';
+export{initPopUpPicture, saveFormAddDataHandler, saveFormEditData};
+
+
 const modalWindowEdit = document.querySelector('.modal-window_edit');
 const modalWindowAdd = document.querySelector('.modal-window_add');
-const modalWindowCloseEdit = document.querySelector('.modal-window__close-button_edit');
-const modalWindowCloseAdd = document.querySelector('.modal-window__close-button_add');
 const profileEdit = document.querySelector('.profile__edit-button');
 const formEdit = document.querySelector('.modal-window__form_edit');
 const formAdd = document.querySelector('.modal-window__form_add');
@@ -14,14 +18,8 @@ const addButton = document.querySelector('.profile__add-button');
 const cards = document.querySelector('.elements');
 const templateCard = document.querySelector('.template-element').content;
 const popUpPicture = document.querySelector('.modal-window_image');
-const popUpPictureImg = document.querySelector('.modal-window__full-image');
-const popUpPictureCaption = document.querySelector('.modal-window__image-caption');
-const popUpPictureCloseButton = document.querySelector('.modal-window__close-button_image');
-const profileName = document.querySelector('.profile__title');
-const profileEmployment = document.querySelector('.profile__subtitle');
 const formProfileName = document.querySelector('.modal-window__name');
 const formProfileEmployment = document.querySelector('.modal-window__employment');
-const overlay = document.querySelector('.modal-window__container-full-image');
 const overlays = Array.from(document.querySelectorAll('.modal-window'));
 const forms = Array.from(document.querySelectorAll('.modal-window__form'));
 const initialCards = [
@@ -60,104 +58,86 @@ const object = ({
     errorClass: 'modal-window__type-error_active' 
 }); 
 
+
+const classSection = new Section({
+    items: initialCards,
+    renderer: (item, containItems) =>{
+        const card = new Card(item, templateCard, initPopUpPicture);
+        const cardElementClass = card.returnCardElement();
+        containItems.prepend(cardElementClass);
+    },
+}, cards);
+classSection.addArray();
+
+const userInfoClass = new UserInfo('.profile__title', '.profile__subtitle');
+userInfoClass.getUserInfo();
+
+const popupWithFormforEdit = new PopupWithForm(modalWindowEdit, '.modal-window__submit-button');
+popupWithFormforEdit.setEventListeners();
+
+const popupWithFormforAdd = new PopupWithForm(modalWindowAdd, '.modal-window__submit-button');
+popupWithFormforAdd.setEventListeners();
+
+const popUpClassImg = new PopupWithImage(popUpPicture);
+popUpClassImg.setEventListeners();
+
 forms.forEach(form => {
     const classValidation = new FormValidator(object, form);
     classValidation.enableValidation();
-});
-
-//Инициализация массива
-initialCards.forEach(item =>{
-    cards.prepend(createCard(item, templateCard, initPopUpPicture));
 });
 
 //Функция создания карточки
 function createCard(item){
     const card = new Card(item, templateCard, initPopUpPicture);
     const cardElementClass = card.returnCardElement();
-    return cardElementClass
-}
-
-//Функция открытия окон и закрытия окон
-function toggleModal(thisWindow){
-    thisWindow.classList.toggle('modal-window_is-open');
-    if(thisWindow.classList.contains('modal-window_is-open')){
-        document.addEventListener('keydown', checkButton);
-    }
-    else{
-        document.removeEventListener('keydown', checkButton);
-    }
-}
-
-//Функция заполнения инпутов при открытии окна
-function profileEditOpenHandler(){
-    formProfileName.value = profileName.textContent;
-    formProfileEmployment.value = profileEmployment.textContent;
-}
-
-//Функция сохранения данных в профиль
-function saveFormEditDataHandler(evt){
-    profileName.textContent = formProfileName.value;
-    profileEmployment.textContent = formProfileEmployment.value;
-    toggleModal(modalWindowEdit);
+    return cardElementClass;
 }
 
 //Функция передачи значений из формы добавления карточек
-function saveFormAddDataHandler(evt){
+function saveFormAddDataHandler(data){
     const item = {
-        name: formPlace.value,
-        link: formLink.value
-    };
+        name: data[0],
+        link: data[1]
+    }
     formPlace.value = "";
     formLink.value ="";
-    cards.prepend(createCard(item, templateCard, initPopUpPicture));
+    classSection.addItem(createCard(item, templateCard, initPopUpPicture));
     const addSubmitButton = formAdd.querySelector('.modal-window__submit-button')
     addSubmitButton.setAttribute('disabled', 'disabled');
     addSubmitButton.classList.add('modal-window__submit-button_disabled');
-    toggleModal(modalWindowAdd);
+    popupWithFormforAdd.close();
+}
+
+//Функция передачи значения из формы в профиль
+function saveFormEditData(data){
+    userInfoClass.setUserInfo(data[0], data[1]);
+    popupWithFormforEdit.close();
+}
+
+//Инициализация окна pop-up с картинкой 
+function initPopUpPicture(item){
+    popUpClassImg.open(item);
 }
 
 //Слушатели открытия окон
-addButton.addEventListener('click', () => toggleModal(modalWindowAdd));
+
+addButton.addEventListener('click', () => popupWithFormforAdd.open());
 
 //Слушатель открытия и заполнения инпутов
 profileEdit.addEventListener('click', () =>{
-    toggleModal(modalWindowEdit);
-    profileEditOpenHandler();
+    popupWithFormforEdit.open();
+    const info = userInfoClass.getUserInfo();
+    formProfileName.value = info.user;
+    formProfileEmployment.value = info.about;
 });
-
-//Проверка слушателей
-function checkButton(evt){
-    const activeWindows = document.querySelector('.modal-window_is-open');
-    if(activeWindows === null){
-        return 0;
-    }
-    if(evt.keyCode === 27){
-        toggleModal(activeWindows);
-    }
-}
 
 //Создание слушателей закрытия окон по оверлею
 overlays.forEach(overlay =>{
     overlay.addEventListener('click', (evt) => {
         if(evt.target.classList.contains('modal-window')){
-            toggleModal(overlay);
+            popUpClassImg.close();
+            popupWithFormforEdit.close();
+            popupWithFormforAdd.close();
         }
     });
 });
-
-//Инициализация окна pop-up с картинкой 
-function initPopUpPicture(item){
-    popUpPictureCaption.textContent = item.name;
-    popUpPictureImg.src = item.link;
-    popUpPictureImg.alt = item.name;
-    toggleModal(popUpPicture);
-}
-
-//Слушатели закрытия окон
-modalWindowCloseEdit.addEventListener('click',() =>  toggleModal(modalWindowEdit));
-modalWindowCloseAdd.addEventListener('click', () => toggleModal(modalWindowAdd));
-popUpPictureCloseButton.addEventListener('click',() => toggleModal(popUpPicture));
-//Слушатели изменения профиля и добавления карточек
-formEdit.addEventListener('submit', saveFormEditDataHandler);
-formAdd.addEventListener('submit', saveFormAddDataHandler);
-

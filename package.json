@@ -1,0 +1,20 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "1. Grid\r 2. Flexbox\r 3. JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SpDmitryKalinin/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SpDmitryKalinin/mesto/issues"
+  },
+  "homepage": "https://github.com/SpDmitryKalinin/mesto#readme"
+}
