@@ -1,11 +1,11 @@
-import{Card} from './Card.js';
-import{FormValidator} from './FormValidator.js';
-import{Section} from './Section.js';
-import{PopupWithImage} from './PopupWithImage.js';
-import{PopupWithForm} from './PopupWithForm.js';
-import{UserInfo} from './UserInfo.js';
-export{initPopUpPicture, saveFormAddDataHandler, saveFormEditData};
-
+import './../pages/index.css';
+import{Card} from './../scripts/Card.js';
+import{FormValidator} from './../scripts/FormValidator.js';
+import{Section} from './../scripts/Section.js';
+import{PopupWithImage} from './../scripts/PopupWithImage.js';
+import{PopupWithForm} from './../scripts/PopupWithForm.js';
+import{UserInfo} from './../scripts//UserInfo.js';
+export{initPopUpPicture};
 
 const modalWindowEdit = document.querySelector('.modal-window_edit');
 const modalWindowAdd = document.querySelector('.modal-window_add');
@@ -69,13 +69,12 @@ const classSection = new Section({
 }, cards);
 classSection.addArray();
 
-const userInfoClass = new UserInfo('.profile__title', '.profile__subtitle');
-userInfoClass.getUserInfo();
 
-const popupWithFormforEdit = new PopupWithForm(modalWindowEdit, '.modal-window__submit-button');
+
+const popupWithFormforEdit = new PopupWithForm(modalWindowEdit, '.modal-window__submit-button', saveFormEditData);
 popupWithFormforEdit.setEventListeners();
 
-const popupWithFormforAdd = new PopupWithForm(modalWindowAdd, '.modal-window__submit-button');
+const popupWithFormforAdd = new PopupWithForm(modalWindowAdd, '.modal-window__submit-button', saveFormAddDataHandler);
 popupWithFormforAdd.setEventListeners();
 
 const popUpClassImg = new PopupWithImage(popUpPicture);
@@ -110,6 +109,7 @@ function saveFormAddDataHandler(data){
 
 //Функция передачи значения из формы в профиль
 function saveFormEditData(data){
+    const userInfoClass = new UserInfo('.profile__title', '.profile__subtitle');
     userInfoClass.setUserInfo(data[0], data[1]);
     popupWithFormforEdit.close();
 }
@@ -126,7 +126,9 @@ addButton.addEventListener('click', () => popupWithFormforAdd.open());
 //Слушатель открытия и заполнения инпутов
 profileEdit.addEventListener('click', () =>{
     popupWithFormforEdit.open();
+    const userInfoClass = new UserInfo('.profile__title', '.profile__subtitle');
     const info = userInfoClass.getUserInfo();
+    
     formProfileName.value = info.user;
     formProfileEmployment.value = info.about;
 });
@@ -135,9 +137,15 @@ profileEdit.addEventListener('click', () =>{
 overlays.forEach(overlay =>{
     overlay.addEventListener('click', (evt) => {
         if(evt.target.classList.contains('modal-window')){
-            popUpClassImg.close();
-            popupWithFormforEdit.close();
-            popupWithFormforAdd.close();
+            if(evt.target.classList.contains('modal-window_image')){
+                popUpClassImg.close();
+            }
+            if(evt.target.classList.contains('modal-window_add')){
+                popupWithFormforAdd.close();
+            }
+            if(evt.target.classList.contains('modal-window_edit')){
+                popupWithFormforEdit.close();
+            } 
         }
     });
 });

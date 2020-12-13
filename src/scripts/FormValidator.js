@@ -26,13 +26,13 @@ class FormValidator{
     _validateInputs(evt){
         if(!evt.target.validity.valid){
             evt.target.classList.add(this.data.inputErrorClass);
-            evt.target.nextElementSibling.classList.add(this.data.errorClass);
-            evt.target.nextElementSibling.textContent = evt.target.validationMessage;
+            evt.target.closest('label').querySelector('.modal-window__type-error').classList.add(this.data.errorClass);
+            evt.target.closest('label').querySelector('.modal-window__type-error').textContent = evt.target.validationMessage;
         }
         if(evt.target.validity.valid){
             evt.target.classList.remove(this.data.inputErrorClass);
-            evt.target.nextElementSibling.classList.remove(this.data.errorClass);
-            evt.target.nextElementSibling.textContent = "";
+            evt.target.closest('label').querySelector('.modal-window__type-error').classList.remove(this.data.errorClass);
+            evt.target.closest('label').querySelector('.modal-window__type-error').textContent = "";
         }
         const check = this._validateForm();
         this._activeOrDisabledSubmit(check);
