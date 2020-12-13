@@ -4,7 +4,11 @@
   "description": "1. Grid\r 2. Flexbox\r 3. JavaScript",
   "main": "index.js",
   "scripts": {
+<<<<<<< HEAD
     "build": "rimraf dist && webpack",
+=======
+    "build": "webpack --mode production",
+>>>>>>> 36b026c94ad8b4370cdbddb363710525bff310d7
     "dev": "webpack serve"
   },
   "repository": {
@@ -18,17 +22,28 @@
   },
   "homepage": "https://github.com/SpDmitryKalinin/mesto#readme",
   "devDependencies": {
+<<<<<<< HEAD
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.10",
+=======
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+>>>>>>> 36b026c94ad8b4370cdbddb363710525bff310d7
     "autoprefixer": "^10.1.0",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
     "cssnano": "^4.1.10",
     "html-webpack-plugin": "^4.5.0",
+<<<<<<< HEAD
     "mini-css-extract-plugin": "^1.3.3",
     "postcss-loader": "^4.1.0",
     "webpack": "^5.10.1",
+=======
+    "mini-css-extract-plugin": "^1.3.2",
+    "postcss-loader": "^4.1.0",
+    "webpack": "^5.10.0",
+>>>>>>> 36b026c94ad8b4370cdbddb363710525bff310d7
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0"
   },
