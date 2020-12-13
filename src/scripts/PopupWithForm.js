@@ -1,35 +1,25 @@
 import{PopUp} from './PopUp.js';
-import{saveFormAddDataHandler,saveFormEditData} from './index.js';
 export class PopupWithForm extends PopUp{
-    constructor(popUpSelector, submitSelector){
-        super(popUpSelector);
+    constructor(popUpElement, submitSelector, handleSubmitForm){
+        super(popUpElement);
         super.submitButtonSelector = submitSelector;
+        this.handleSubmitForm = handleSubmitForm;
+        this._inputList = Array.from(this.popUpElement.querySelectorAll('.modal-window__item'));
+        this._inputListForClose = Array.from(this.popUpElement.querySelectorAll('.modal-window__item'));
     }
     setEventListeners(){
         super.setEventListeners();
-        if(this.popUpSelector.classList.contains('modal-window_edit')){
-            this.popUpSelector.addEventListener('submit', () => saveFormEditData(this._getInputValues()));
-        }
-        if(this.popUpSelector.classList.contains('modal-window_add')){
-            this.popUpSelector.addEventListener('submit',() => saveFormAddDataHandler(this._getInputValues()));
-        }
+        this.popUpElement.addEventListener('submit', () => this.handleSubmitForm(this._getInputValues()));
     }
     _getInputValues(){
-        const inputList = Array.from(this.popUpSelector.querySelectorAll('.modal-window__item'));
         let info = {};
-        for(let i =0; i<inputList.length-1; i++){
-            info[i] = inputList[i].value;
+        for(let i =0; i<this._inputList.length-1; i++){
+            info[i] = this._inputList[i].value;
         }
         return info;
     }
-    _saveFormEditData(){
-        const data = this._getInputValues();
-        userInfoClass.setUserInfo(data[0], data[1]);
-        this.close();
-    }
     close(){
-        const inputListForClose = Array.from(this.popUpSelector.querySelectorAll('.modal-window__item'));
-        inputListForClose.forEach(item =>{
+        this._inputListForClose.forEach(item =>{
           item.value = "";
         })
         super.close();
