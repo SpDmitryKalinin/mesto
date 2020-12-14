@@ -27,7 +27,6 @@ class FormValidator{
         const ErrorElement = evt.target.closest('label').querySelector('.modal-window__type-error');
         if(!evt.target.validity.valid){
             evt.target.classList.add(this.data.inputErrorClass);
-<<<<<<< HEAD:src/components/FormValidator.js
             ErrorElement.classList.add(this.data.errorClass);
             ErrorElement.textContent = evt.target.validationMessage;
         }
@@ -35,15 +34,6 @@ class FormValidator{
             evt.target.classList.remove(this.data.inputErrorClass);
             ErrorElement.classList.remove(this.data.errorClass);
             ErrorElement.textContent = "";
-=======
-            evt.target.closest('label').querySelector('.modal-window__type-error').classList.add(this.data.errorClass);
-            evt.target.closest('label').querySelector('.modal-window__type-error').textContent = evt.target.validationMessage;
-        }
-        if(evt.target.validity.valid){
-            evt.target.classList.remove(this.data.inputErrorClass);
-            evt.target.closest('label').querySelector('.modal-window__type-error').classList.remove(this.data.errorClass);
-            evt.target.closest('label').querySelector('.modal-window__type-error').textContent = "";
->>>>>>> 42d44548c2d41892dec430b85ae0a482eb22b019:src/scripts/FormValidator.js
         }
         const check = this._validateForm();
         this._activeOrDisabledSubmit(check);
