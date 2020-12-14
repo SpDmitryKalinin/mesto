@@ -1,4 +1,3 @@
-<<<<<<< HEAD:src/pages/index.js
 import './../pages/index.css'; 
 
 import{Card} from './../components/Card.js';
@@ -7,16 +6,6 @@ import{Section} from './../components/Section.js';
 import{PopupWithImage} from './../components/PopupWithImage.js';
 import{PopupWithForm} from './../components/PopupWithForm.js';
 import{UserInfo} from './../components/UserInfo.js';
-=======
-import './../pages/index.css';
-
-import{Card} from './../scripts/Card.js';
-import{FormValidator} from './../scripts/FormValidator.js';
-import{Section} from './../scripts/Section.js';
-import{PopupWithImage} from './../scripts/PopupWithImage.js';
-import{PopupWithForm} from './../scripts/PopupWithForm.js';
-import{UserInfo} from './../scripts//UserInfo.js';
->>>>>>> 42d44548c2d41892dec430b85ae0a482eb22b019:scripts/index.js
 export{initPopUpPicture};
 
 const modalWindowEdit = document.querySelector('.modal-window_edit');
@@ -122,12 +111,7 @@ function saveFormAddDataHandler(data){
 
 //Функция передачи значения из формы в профиль
 function saveFormEditData(data){
-<<<<<<< HEAD:src/pages/index.js
     userInfoClass.setUserInfo(data['name'], data['emloyment']);
-=======
-    const userInfoClass = new UserInfo('.profile__title', '.profile__subtitle');
-    userInfoClass.setUserInfo(data[0], data[1]);
->>>>>>> 42d44548c2d41892dec430b85ae0a482eb22b019:scripts/index.js
     popupWithFormforEdit.close();
 }
 
@@ -149,23 +133,3 @@ profileEdit.addEventListener('click', () =>{
     formProfileName.value = info.user;
     formProfileEmployment.value = info.about;
 });
-
-<<<<<<< HEAD:src/pages/index.js
-=======
-//Создание слушателей закрытия окон по оверлею
-overlays.forEach(overlay =>{
-    overlay.addEventListener('click', (evt) => {
-        if(evt.target.classList.contains('modal-window')){
-            if(evt.target.classList.contains('modal-window_image')){
-                popUpClassImg.close();
-            }
-            if(evt.target.classList.contains('modal-window_add')){
-                popupWithFormforAdd.close();
-            }
-            if(evt.target.classList.contains('modal-window_edit')){
-                popupWithFormforEdit.close();
-            } 
-        }
-    });
-});
->>>>>>> 42d44548c2d41892dec430b85ae0a482eb22b019:scripts/index.js

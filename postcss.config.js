@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-// подключите плагины в файл
-=======
->>>>>>> 42d44548c2d41892dec430b85ae0a482eb22b019
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
 
