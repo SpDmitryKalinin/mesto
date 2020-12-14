@@ -1,11 +1,12 @@
-import{Card} from './Card.js';
-import{FormValidator} from './FormValidator.js';
-import{Section} from './Section.js';
-import{PopupWithImage} from './PopupWithImage.js';
-import{PopupWithForm} from './PopupWithForm.js';
-import{UserInfo} from './UserInfo.js';
-export{initPopUpPicture, saveFormAddDataHandler, saveFormEditData};
+import './../pages/index.css'; 
 
+import{Card} from './../components/Card.js';
+import{FormValidator} from './../components/FormValidator.js';
+import{Section} from './../components/Section.js';
+import{PopupWithImage} from './../components/PopupWithImage.js';
+import{PopupWithForm} from './../components/PopupWithForm.js';
+import{UserInfo} from './../components/UserInfo.js';
+export{initPopUpPicture};
 
 const modalWindowEdit = document.querySelector('.modal-window_edit');
 const modalWindowAdd = document.querySelector('.modal-window_add');
@@ -20,7 +21,6 @@ const templateCard = document.querySelector('.template-element').content;
 const popUpPicture = document.querySelector('.modal-window_image');
 const formProfileName = document.querySelector('.modal-window__name');
 const formProfileEmployment = document.querySelector('.modal-window__employment');
-const overlays = Array.from(document.querySelectorAll('.modal-window'));
 const forms = Array.from(document.querySelectorAll('.modal-window__form'));
 const initialCards = [
     {
@@ -69,17 +69,18 @@ const classSection = new Section({
 }, cards);
 classSection.addArray();
 
-const userInfoClass = new UserInfo('.profile__title', '.profile__subtitle');
-userInfoClass.getUserInfo();
 
-const popupWithFormforEdit = new PopupWithForm(modalWindowEdit, '.modal-window__submit-button');
+
+const popupWithFormforEdit = new PopupWithForm(modalWindowEdit, '.modal-window__submit-button', saveFormEditData);
 popupWithFormforEdit.setEventListeners();
 
-const popupWithFormforAdd = new PopupWithForm(modalWindowAdd, '.modal-window__submit-button');
+const popupWithFormforAdd = new PopupWithForm(modalWindowAdd, '.modal-window__submit-button', saveFormAddDataHandler);
 popupWithFormforAdd.setEventListeners();
 
 const popUpClassImg = new PopupWithImage(popUpPicture);
 popUpClassImg.setEventListeners();
+
+const userInfoClass = new UserInfo('.profile__title', '.profile__subtitle');
 
 forms.forEach(form => {
     const classValidation = new FormValidator(object, form);
@@ -96,8 +97,8 @@ function createCard(item){
 //Функция передачи значений из формы добавления карточек
 function saveFormAddDataHandler(data){
     const item = {
-        name: data[0],
-        link: data[1]
+        name: data['place'],
+        link: data['link']
     }
     formPlace.value = "";
     formLink.value ="";
@@ -110,7 +111,7 @@ function saveFormAddDataHandler(data){
 
 //Функция передачи значения из формы в профиль
 function saveFormEditData(data){
-    userInfoClass.setUserInfo(data[0], data[1]);
+    userInfoClass.setUserInfo(data['name'], data['emloyment']);
     popupWithFormforEdit.close();
 }
 
@@ -127,17 +128,8 @@ addButton.addEventListener('click', () => popupWithFormforAdd.open());
 profileEdit.addEventListener('click', () =>{
     popupWithFormforEdit.open();
     const info = userInfoClass.getUserInfo();
+    
     formProfileName.value = info.user;
     formProfileEmployment.value = info.about;
 });
 
-//Создание слушателей закрытия окон по оверлею
-overlays.forEach(overlay =>{
-    overlay.addEventListener('click', (evt) => {
-        if(evt.target.classList.contains('modal-window')){
-            popUpClassImg.close();
-            popupWithFormforEdit.close();
-            popupWithFormforAdd.close();
-        }
-    });
-});

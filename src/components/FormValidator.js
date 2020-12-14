@@ -24,15 +24,16 @@ class FormValidator{
     }
     //Функция валидации инпутов на ошибки
     _validateInputs(evt){
+        const ErrorElement = evt.target.closest('label').querySelector('.modal-window__type-error');
         if(!evt.target.validity.valid){
             evt.target.classList.add(this.data.inputErrorClass);
-            evt.target.nextElementSibling.classList.add(this.data.errorClass);
-            evt.target.nextElementSibling.textContent = evt.target.validationMessage;
+            ErrorElement.classList.add(this.data.errorClass);
+            ErrorElement.textContent = evt.target.validationMessage;
         }
         if(evt.target.validity.valid){
             evt.target.classList.remove(this.data.inputErrorClass);
-            evt.target.nextElementSibling.classList.remove(this.data.errorClass);
-            evt.target.nextElementSibling.textContent = "";
+            ErrorElement.classList.remove(this.data.errorClass);
+            ErrorElement.textContent = "";
         }
         const check = this._validateForm();
         this._activeOrDisabledSubmit(check);
