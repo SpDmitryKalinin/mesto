@@ -10,7 +10,7 @@ export class Section{
             this.renderer(item, this.containSelector);
         });
     }
-    addItem(element){
-        this.containSelector.prepend(element);
+    addItem(element, containSelector){
+        containSelector.prepend(element);
     }
 }

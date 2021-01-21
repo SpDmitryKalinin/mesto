@@ -53,3 +53,9 @@
 @import url(../blocks/modal-window/__item/_error/modal-window__item_error.css); 
 @import url(../blocks/modal-window/__type-error/_active/modal-window__type-error_active.css); 
 @import url(../blocks/modal-window/__submit-button/_disabled/modal-window__submit-button_disabled.css);
+
+@import url(../blocks/element/__like/element__like.css);
+@import url(../blocks/element/__counter-like/element__counter-like.css);
+@import url(../blocks/modal-window/__confirm-container/modal-window__confirm-container.css);
+@import url(../blocks/profile/__avatar-container/profile__avatar-container.css);
+@import url(../blocks/profile/__avatar-edit-button/profile__avatar-edit-button.css);
