@@ -1,14 +1,15 @@
 import{PopUp} from './PopUp.js';
 export class PopupWithForm extends PopUp{
-    constructor(popUpElement, submitSelector, handleSubmitForm){
-        super(popUpElement);
+    constructor(popUpElement, escButton, submitSelector, handleSubmitForm){
+        super(popUpElement, escButton);
         super.submitButtonSelector = submitSelector;
+        super._escButton = escButton;
         this.handleSubmitForm = handleSubmitForm;
-        this._inputList = Array.from(this.popUpElement.querySelectorAll('.modal-window__item'));
+        this._inputList = Array.from(this._popUpElement.querySelectorAll('.modal-window__item'));
     }
     setEventListeners(){
         super.setEventListeners();
-        this.popUpElement.addEventListener('submit', () => this.handleSubmitForm(this._getInputValues()));
+        this._popUpElement.addEventListener('submit', () => this.handleSubmitForm(this._getInputValues()));
     }
     _getInputValues() {
         const info = {};

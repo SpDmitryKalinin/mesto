@@ -44,7 +44,7 @@
         </section>
 
         <section class="modal-window modal-window_add">
-            <form name="profile" class="modal-window__form modal-window__form_add" novalidate>
+            <form name="add" class="modal-window__form modal-window__form_add" novalidate>
                 <h2 class="modal-window__title">Новое место</h2>
                 <label><input name="place" placeholder = "Название" class="modal-window__item modal-window__place" type="text" required minlength="2" maxlength="30"><span class="modal-window__type-error">hhhh</span></label>
                 <label><input type="url" name="link" placeholder="Ссылка на картинку" class="modal-window__item modal-window__link" required><span class="modal-window__type-error">Вы пропустили это поле</span></label>
@@ -70,7 +70,7 @@
         </section>
 
         <section class="modal-window modal-window_edit-avatar">
-            <form name="profile" class="modal-window__form modal-window__form_edit-avatar" novalidate>
+            <form name="avatar" class="modal-window__form modal-window__form_edit-avatar" novalidate>
                 <h2 class="modal-window__title">Обновить аватар</h2>
                 <label><input type="url" name="link" placeholder="Ссылка на картинку" class="modal-window__item modal-window__link" required><span class="modal-window__type-error">Вы пропустили это поле</span></label>
                 <button class="modal-window__item modal-window__submit-button modal-window__submit-button_disabled modal-window__submit-button-edit-avatar" type="submit" disabled>Сохранить</button>
@@ -82,7 +82,7 @@
 
     <template class="template-element">
         <section class="element">
-            <img class="element__image" src="#" alt="#">
+            <img class="element__image" src="" alt="" >
             <div class="element__caption">
                 <h2 class="element__title"></h2>
                 <div class="element__like">
@@ -90,11 +90,8 @@
                     <p class="element__counter-like">1</p>
                 </div>
             </div>
+            <button class="element__button-delete"></button>
         </section>
-    </template>
-
-    <template class="template-delete-button">
-        <button class="element__button-delete"></button>
     </template>
 </body>
 </html>

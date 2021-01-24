@@ -1,19 +1,19 @@
 export class PopUp{
-    constructor(popUpElement){
-        this.popUpElement = popUpElement;
-        this.EscHandle = this._handleEscClose.bind(this);
+    constructor(popUpElement, escButton){
+        this._popUpElement = popUpElement;
+        this._escHandle = this._handleEscClose.bind(this);
+        this._escButton = escButton;
     }
     open(){
-        this.popUpElement.classList.add('modal-window_is-open');
-        document.addEventListener('keydown', this.EscHandle);
+        this._popUpElement.classList.add('modal-window_is-open');
+        document.addEventListener('keydown', this._escHandle);
     }
     close(){
-        this.popUpElement.classList.remove('modal-window_is-open');
-        document.removeEventListener('keydown', this.EscHandle);
+        this._popUpElement.classList.remove('modal-window_is-open');
+        document.removeEventListener('keydown', this._escHandle);
     }
     _handleEscClose(evt){
-        const escButton = 27;
-        if(evt.keyCode === escButton){
+        if(evt.keyCode === this._escButton){
            this.close();
         }
         else{
@@ -22,8 +22,8 @@ export class PopUp{
     }
     setEventListeners(){
         //Слушатели закрытия окон
-        this.popUpElement.querySelector('.modal-window__close-button').addEventListener('click',() => this.close());
-        this.popUpElement.addEventListener('click', (evt) => {
+        this._popUpElement.querySelector('.modal-window__close-button').addEventListener('click',() => this.close());
+        this._popUpElement.addEventListener('click', (evt) => {
             if(evt.target === this.popUpElement) {
                 this.close();
             }

@@ -1,23 +1,28 @@
 export class UserInfo{
     constructor(userName, userAbout, userAvatar){
-        this.userName = userName;
-        this.userAbout = userAbout;
-        this.userAvatar = userAvatar;
-        this.setName = document.querySelector(this.userName);
-        this.setAbout = document.querySelector(this.userAbout);
-        this.setAvatar = document.querySelector(this.userAvatar);
-        this.objUserInfo = {user: document.querySelector(this.userName).textContent, 
-            about: document.querySelector(this.userAbout).textContent};
+        this._userName = userName;
+        this._userAbout = userAbout;
+        this._userAvatar = userAvatar;
+        this._setName = document.querySelector(this._userName);
+        this._setAbout = document.querySelector(this._userAbout);
+        this._setAvatar = document.querySelector(this._userAvatar);
+        this._objUserInfo = {user: document.querySelector(this._userName).textContent, 
+            about: document.querySelector(this._userAbout).textContent};
     }
     setUserInfo(name, about){
-        this.setName.textContent = name;
-        this.setAbout.textContent = about;
+        if(name){
+            this._setName.textContent = name;
+        }
+        if(about){
+            this._setAbout.textContent = about;
+        }
+        
     }
     setUserAvatar(avatar){
-        this.setAvatar.src = avatar;
+        this._setAvatar.src = avatar;
     }
     getUserInfo() {
-        return {user: document.querySelector(this.userName).textContent, 
-            about: document.querySelector(this.userAbout).textContent};
+        return {user: this._setName.textContent, 
+            about: this._setAbout.textContent};
     } 
 }

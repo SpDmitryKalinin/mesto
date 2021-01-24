@@ -10,7 +10,7 @@
 }
 
 .modal-window__submit-button:hover{
-    background-color: rgba(0,0,0,0.8);
+    background-color: RGBA(0,0,0,0.8);
 }
 
 @media screen and (max-width: 900px){

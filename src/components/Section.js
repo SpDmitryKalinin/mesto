@@ -1,16 +1,15 @@
 export class Section{
-    constructor({items, renderer}, containSelector){
-        this.items = items;
-        this.renderer = renderer;
-        this.containSelector = containSelector;
+    constructor({renderer}, contain){
+        this._renderer = renderer;
+        this.contain = contain;
     }
     //Инициализация массива
-    addArray(){
-        this.items.forEach(item =>{
-            this.renderer(item, this.containSelector);
+    addArray(items){
+        items.forEach(item =>{
+            this._renderer(item, this.contain);
         });
     }
-    addItem(element, containSelector){
-        containSelector.prepend(element);
+    addItem(element, contain){
+        contain.prepend(element);
     }
 }

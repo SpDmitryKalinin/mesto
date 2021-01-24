@@ -1,31 +1,24 @@
 export class Api{
-    constructor(adress, token, id){
-        this._adress = adress;
+    constructor(token, addressCard, addressInfo){
         this._token = token;
-        this._id = id;
+        this._addressCard = addressCard;
+        this._addressInfo = addressInfo;
     }
-
+    
     getProfileInfo(){
-        return fetch(`${this._adress}`,{
+        return fetch(`${this._addressInfo}`,{
             method: 'GET',
             headers:{
                 authorization: `${this._token}`
             }
         })
             .then(res => {
-                if(res.ok){
-                    return res.json()
-                }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return this._getResponseData(res);
         })
-            .catch((err) => {
-                console.log(err); 
-        }); 
-        
     }
 
     patchProfileInfo(name, about){
-        fetch(`${this._adress}`,{
+        return fetch(`${this._addressInfo}`,{
             method: 'PATCH',
             headers:{
                 authorization: `${this._token}`,
@@ -35,11 +28,14 @@ export class Api{
                 name: `${name}`,
                 about: `${about}`
               })
-        });
+        })
+            .then(res => {
+                return this._getResponseData(res);
+        })
     }
 
     patchProfileAvatar(link){
-        fetch(`${this._adress}/avatar`,{
+        return fetch(`${this._addressInfo}/avatar`,{
             method: 'PATCH',
             headers:{
                 authorization: `${this._token}`,
@@ -48,29 +44,26 @@ export class Api{
             body: JSON.stringify({
                 avatar: `${link}`
               })
-        });
+        })
+        .then(res => {
+            return this._getResponseData(res)
+        })
     }
 
     getCards(){
-        return fetch(`${this._adress}`,{
+        return fetch(`${this._addressCard}`,{
             method: 'GET',
             headers:{
                 authorization: `${this._token}`
             }
         })
         .then(res => {
-            if(res.ok){
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-    })
-        .catch((err) => {
-            console.log(err); 
-    }); 
+            return this._getResponseData(res)
+        })
     }
 
     postCards(name, link){
-        fetch(`${this._adress}`,{
+        return fetch(`${this._addressCard}`,{
             method: 'POST',
             headers:{
                 authorization: `${this._token}`,
@@ -81,35 +74,57 @@ export class Api{
                 link: `${link}`
             })
         })
+        .then(res => {
+            return this._getResponseData(res)
+        })
     }
 
     deleteCard(id){
-        fetch(`https://mesto.nomoreparties.co/v1/cohort-19/cards/${id}`,{
+        return fetch(`${this._addressCard}/${id}`,{
                     method: 'DELETE',
                     headers:{
                         authorization: `99cf486b-e575-4fd7-a9fa-cafa2239ffe6`
                     }
-                });
-        if(document.getElementById(id)){
-            document.getElementById(id).remove();
-        }
+                })
     }
 
-    getCountLike(id){
-        return fetch(`${this._adress}`,{
+    getCountLike(){
+        return fetch(`${this._addressCard}`,{
             method: 'GET',
             headers:{
                 authorization: `${this._token}`
             }
         })
         .then(res => {
-            if(res.ok){
-                return res.json()
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return this._getResponseData(res)
     })
         .catch((err) => {
             console.log(err); 
     }); 
-    } 
+    }
+
+    _getResponseData(res) {
+        if (!res.ok) {
+            return Promise.reject(`Ошибка: ${res.status}`);
+        }
+        return res.json();
+    }
+
+    putLike(id){
+        fetch(`${this._addressCard}/likes/${id}`,{
+            method: 'PUT',
+            headers:{
+                authorization: `${this._token}`
+            }
+        });
+    }
+
+    deleteLike(id){
+        fetch(`${this._addressCard}/likes/${id}`,{
+            method: 'DELETE',
+            headers:{
+                authorization: `${this._token}`
+            }
+        });
+    }
 }
