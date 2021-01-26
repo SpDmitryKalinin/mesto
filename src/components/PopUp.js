@@ -1,8 +1,9 @@
+import{escButton} from './../utils/constants.js';
+
 export class PopUp{
-    constructor(popUpElement, escButton){
+    constructor(popUpElement){
         this._popUpElement = popUpElement;
         this._escHandle = this._handleEscClose.bind(this);
-        this._escButton = escButton;
     }
     open(){
         this._popUpElement.classList.add('modal-window_is-open');
@@ -13,7 +14,7 @@ export class PopUp{
         document.removeEventListener('keydown', this._escHandle);
     }
     _handleEscClose(evt){
-        if(evt.keyCode === this._escButton){
+        if(evt.keyCode === escButton){
            this.close();
         }
         else{
@@ -24,7 +25,7 @@ export class PopUp{
         //Слушатели закрытия окон
         this._popUpElement.querySelector('.modal-window__close-button').addEventListener('click',() => this.close());
         this._popUpElement.addEventListener('click', (evt) => {
-            if(evt.target === this.popUpElement) {
+            if(evt.target === this._popUpElement){
                 this.close();
             }
         });

@@ -1,12 +1,13 @@
 export class Section{
-    constructor({renderer}, contain){
+    constructor({renderer}, contain, userName){
         this._renderer = renderer;
         this.contain = contain;
+        this.userName = userName;
     }
     //Инициализация массива
-    addArray(items){
+    addArray(items, userName, userId){
         items.forEach(item =>{
-            this._renderer(item, this.contain);
+            this._renderer(item, userName, userId, this.contain);
         });
     }
     addItem(element, contain){

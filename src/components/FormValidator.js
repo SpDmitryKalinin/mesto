@@ -15,7 +15,7 @@ class FormValidator{
     _setAddEventListeners(){
         this._inputList.forEach(input =>{
             input.addEventListener('input', (evt) => {
-                this._validateInputs(evt, this._form);
+                this._validateInputs(evt, input);
             });
         });
         this._form.addEventListener('submit', (evt) => {
@@ -23,8 +23,8 @@ class FormValidator{
           });
     }
     //Функция валидации инпутов на ошибки
-    _validateInputs(evt){
-        const errorElement = this._form.querySelector((`.${evt.target.classList[1]}`)).nextSibling;
+    _validateInputs(evt, input){
+        const errorElement = input.closest('label').querySelector(`.${this._data.errorContainClass}`); 
         if(!evt.target.validity.valid){
             evt.target.classList.add(this._data.inputErrorClass);
             errorElement.classList.add(this._data.errorClass);

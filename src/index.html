@@ -36,8 +36,13 @@
         <section class="modal-window modal-window_edit">
             <form name="profile" class="modal-window__form modal-window__form_edit" novalidate>
                 <h2 class="modal-window__title">Редактировать профиль</h2>
-                <label class="sss"><input name="name" class="modal-window__item modal-window__name" type="text" required minlength="2" maxlength="40"><span class="modal-window__type-error">Вы пропустили это поле</span></label>
-                <label><input name="emloyment" class="modal-window__item modal-window__employment" type="text" minlength="2" maxlength="200" required><span class="modal-window__type-error">Вы пропустили это поле</span></label>
+                <label>
+                    <input name="name" class="modal-window__item modal-window__name" type="text" required minlength="2" maxlength="40">
+                    <span class="modal-window__type-error">Вы пропустили это поле</span>
+                </label>
+                <label><input name="emloyment" class="modal-window__item modal-window__employment" type="text" minlength="2" maxlength="200" required>
+                    <span class="modal-window__type-error">Вы пропустили это поле</span>
+                </label>
                 <button class="modal-window__item modal-window__submit-button modal-window__submit-button-edit-info" type="submit">Сохранить</button>
                 <button type="button" class="modal-window__close-button modal-window__close-button_edit"></button>
             </form>

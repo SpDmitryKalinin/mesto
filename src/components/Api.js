@@ -45,7 +45,7 @@ export class Api{
                 avatar: `${link}`
               })
         })
-        .then(res => {
+            .then(res => {
             return this._getResponseData(res)
         })
     }
@@ -57,7 +57,7 @@ export class Api{
                 authorization: `${this._token}`
             }
         })
-        .then(res => {
+            .then(res => {
             return this._getResponseData(res)
         })
     }
@@ -74,33 +74,45 @@ export class Api{
                 link: `${link}`
             })
         })
-        .then(res => {
-            return this._getResponseData(res)
+            .then(res => {
+                return this._getResponseData(res)
         })
     }
 
     deleteCard(id){
         return fetch(`${this._addressCard}/${id}`,{
-                    method: 'DELETE',
-                    headers:{
-                        authorization: `99cf486b-e575-4fd7-a9fa-cafa2239ffe6`
-                    }
-                })
-    }
-
-    getCountLike(){
-        return fetch(`${this._addressCard}`,{
-            method: 'GET',
+            method: 'DELETE',
             headers:{
                 authorization: `${this._token}`
             }
         })
-        .then(res => {
-            return this._getResponseData(res)
-    })
-        .catch((err) => {
-            console.log(err); 
-    }); 
+            .then(res => {
+                return this._getResponseData(res)
+        })
+    }
+
+    putLike(id){
+        return fetch(`${this._addressCard}/likes/${id}`,{
+            method: 'PUT',
+            headers:{
+                authorization: `${this._token}`
+            }
+            })
+            .then(res => {
+                return this._getResponseData(res)
+        })
+    }
+
+    deleteLike(id){
+        return fetch(`${this._addressCard}/likes/${id}`,{
+            method: 'DELETE',
+            headers:{
+                authorization: `${this._token}`
+            }
+        })
+            .then(res => {
+                return this._getResponseData(res)
+        })
     }
 
     _getResponseData(res) {
@@ -108,23 +120,5 @@ export class Api{
             return Promise.reject(`Ошибка: ${res.status}`);
         }
         return res.json();
-    }
-
-    putLike(id){
-        fetch(`${this._addressCard}/likes/${id}`,{
-            method: 'PUT',
-            headers:{
-                authorization: `${this._token}`
-            }
-        });
-    }
-
-    deleteLike(id){
-        fetch(`${this._addressCard}/likes/${id}`,{
-            method: 'DELETE',
-            headers:{
-                authorization: `${this._token}`
-            }
-        });
     }
 }
